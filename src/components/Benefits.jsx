@@ -92,13 +92,13 @@ export default function Benefits() {
   return (
     <section
       ref={ref}
+      id="benefits"
       style={{
         background: "linear-gradient(135deg,#FFFBEB,#FFF7ED,#FFFFFF)",
         padding: "7rem 5rem",
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        {/* Header */}
         <div
           className="reveal-up"
           style={{
