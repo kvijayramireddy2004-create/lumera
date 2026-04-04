@@ -4,7 +4,7 @@ import About           from './components/About'
 import ProblemSolution from './components/ProblemSolution'
 import HowItWorks      from './components/HowItWorks'
 import Benefits        from './components/Benefits'
-import WhyLumera       from './components/WhyLumera'
+// import WhyLumera       from './components/WhyLumera'
 import Contact         from './components/Contact'
 import Footer          from './components/Footer'
 
@@ -18,7 +18,7 @@ export default function App() {
         <ProblemSolution />
         <HowItWorks />
         <Benefits />
-        <WhyLumera />
+        {/* <WhyLumera /> */}
         <Contact />
       </main>
       <Footer />

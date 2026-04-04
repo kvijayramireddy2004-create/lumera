@@ -36,6 +36,7 @@ const SOLUTIONS = [
 
 function SolCard({ icon, title, desc }) {
   const [hov, setHov] = useState(false);
+
   return (
     <div
       className="sol-card"
@@ -69,6 +70,7 @@ function SolCard({ icon, title, desc }) {
       >
         {icon}
       </div>
+
       <div
         style={{
           fontFamily: "'Barlow Condensed',sans-serif",
@@ -82,6 +84,7 @@ function SolCard({ icon, title, desc }) {
       >
         {title}
       </div>
+
       <div style={{ fontSize: "0.83rem", color: "#64748B", lineHeight: 1.65 }}>
         {desc}
       </div>
@@ -94,29 +97,53 @@ export default function ProblemSolution() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // Header animation
       gsap.from(".ps-header", {
-        scrollTrigger: { trigger: ".ps-header", start: "top 82%" },
+        scrollTrigger: {
+          trigger: ".ps-header",
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
         opacity: 0,
         y: 40,
         duration: 0.8,
         ease: "power3.out",
       });
+
+      // Problem card animation
       gsap.from(".prob-card", {
-        scrollTrigger: { trigger: ".prob-card", start: "top 82%" },
+        scrollTrigger: {
+          trigger: ".prob-card",
+          start: "top 85%",
+          toggleActions: "play none none reverse",
+        },
         opacity: 0,
         x: -55,
         duration: 0.9,
         ease: "power3.out",
       });
-      gsap.from(".sol-card", {
-        scrollTrigger: { trigger: ".sol-card", start: "top 85%" },
-        opacity: 0,
-        y: 40,
-        stagger: 0.12,
-        duration: 0.7,
-        ease: "power3.out",
+
+      // ✅ FIXED: Each solution card gets its own trigger
+      gsap.utils.toArray(".sol-card").forEach((card) => {
+        gsap.from(card, {
+          scrollTrigger: {
+            trigger: card,
+            start: "top 85%",
+            toggleActions: "play none none reverse",
+          },
+          opacity: 0,
+          y: 40,
+          duration: 0.7,
+          ease: "power3.out",
+        });
       });
     }, sRef);
+
+    // Refresh ScrollTrigger after mount
+    setTimeout(() => {
+      ScrollTrigger.refresh();
+    }, 100);
+
     return () => ctx.revert();
   }, []);
 
@@ -124,7 +151,13 @@ export default function ProblemSolution() {
     <section
       id="solution"
       ref={sRef}
-      style={{ background: "#FFF7ED", padding: "7rem 5rem" }}
+      style={{
+        background: "#FFF7ED",
+        padding: "7rem 5rem",
+        minHeight: "100vh",
+        position: "relative",
+        zIndex: 1,
+      }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         {/* Header */}
@@ -135,6 +168,7 @@ export default function ProblemSolution() {
           <div className="sec-label" style={{ justifyContent: "center" }}>
             The Challenge &amp; Our Answer
           </div>
+
           <h2
             style={{
               fontFamily: "'Barlow Condensed',sans-serif",
@@ -149,7 +183,7 @@ export default function ProblemSolution() {
           </h2>
         </div>
 
-        {/* Main grid */}
+        {/* Grid */}
         <div
           style={{
             display: "grid",
@@ -157,7 +191,7 @@ export default function ProblemSolution() {
             gap: "2.5rem",
           }}
         >
-          {/* Problem card */}
+          {/* Problem Card */}
           <div
             className="prob-card"
             style={{
@@ -177,6 +211,7 @@ export default function ProblemSolution() {
               }}
             >
               <span style={{ fontSize: "1.5rem" }}>⚡</span>
+
               <h3
                 style={{
                   fontFamily: "'Barlow Condensed',sans-serif",
@@ -184,59 +219,30 @@ export default function ProblemSolution() {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.04em",
-                  color: "#0C1220",
                 }}
               >
                 Why Your Bills Keep Rising
               </h3>
             </div>
+
             {PROBLEMS.map((p, i) => (
               <div
                 key={i}
                 style={{
                   display: "flex",
                   gap: "0.75rem",
-                  alignItems: "flex-start",
                   padding: "0.72rem 0",
                   borderBottom:
                     i < PROBLEMS.length - 1 ? "1px solid #FEF3E2" : "none",
-                  fontSize: "0.92rem",
-                  color: "#475569",
-                  lineHeight: 1.6,
                 }}
               >
-                <span
-                  style={{
-                    color: "#EF4444",
-                    fontWeight: 700,
-                    flexShrink: 0,
-                    marginTop: "1px",
-                  }}
-                >
-                  ↑
-                </span>
+                <span style={{ color: "#EF4444", fontWeight: 700 }}>↑</span>
                 {p}
               </div>
             ))}
-            <div
-              style={{
-                marginTop: "1.5rem",
-                padding: "1rem 1.2rem",
-                background: "rgba(239,68,68,0.06)",
-                borderLeft: "3px solid rgba(239,68,68,0.4)",
-                borderRadius: "0 8px 8px 0",
-                fontSize: "0.85rem",
-                color: "#64748B",
-                fontStyle: "italic",
-                lineHeight: 1.6,
-              }}
-            >
-              "These hidden charges silently erode your profit margins every
-              quarter — and they only go up."
-            </div>
           </div>
 
-          {/* Solution cards */}
+          {/* Solutions */}
           <div
             style={{
               display: "grid",

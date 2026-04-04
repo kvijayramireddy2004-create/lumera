@@ -19,10 +19,10 @@ const S = {
     pointerEvents: "none",
     background: `
       linear-gradient(115deg,
-        rgba(6,10,18,0.90) 0%,
-        rgba(6,10,18,0.75) 42%,
-        rgba(6,10,18,0.25) 68%,
-        rgba(6,10,18,0.05) 100%)
+        rgba(6,10,18,0.88) 0%,
+        rgba(6,10,18,0.70) 42%,
+        rgba(6,10,18,0.20) 68%,
+        rgba(6,10,18,0.00) 100%)
     `,
   },
   bottomFade: {
@@ -32,7 +32,7 @@ const S = {
     right: 0,
     height: "220px",
     pointerEvents: "none",
-    background: "linear-gradient(to bottom, transparent, #FFFFFF)",
+    background: "linear-gradient(to bottom, transparent, #0A0E16)",
   },
   content: {
     position: "relative",
@@ -211,13 +211,12 @@ export default function Hero() {
 
   return (
     <section id="home" style={S.section}>
-      {/* 3D Canvas */}
       <div style={S.canvas}>
         <Suspense
           fallback={
             <div
               style={{
-                background: "linear-gradient(135deg,#87CEEB,#FF9800)",
+                background: "linear-gradient(135deg,#0B1120,#1A1A2E)",
                 width: "100%",
                 height: "100%",
               }}
@@ -227,12 +226,9 @@ export default function Hero() {
           <HeroScene />
         </Suspense>
       </div>
-
-      {/* Gradient overlays */}
       <div style={S.overlay} />
       <div style={S.bottomFade} />
 
-      {/* Text Content */}
       <div ref={contentRef} style={S.content}>
         <div className="hero-badge" style={S.badge}>
           <span style={S.badgeDot} />
@@ -280,7 +276,6 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Stats */}
       <div style={S.statsRow}>
         {STATS.map((s) => (
           <div key={s.lbl} className="hero-stat">
@@ -290,7 +285,6 @@ export default function Hero() {
         ))}
       </div>
 
-      {/* Scroll hint */}
       <div className="scroll-hint" style={S.scrollHint}>
         <span style={S.scrollLabel}>Scroll</span>
         <div style={S.scrollLine} />
