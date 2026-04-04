@@ -332,3 +332,22 @@ body {
 /* section {
   border: 1px solid rgba(255,0,0,0.2);
 } */
+/* Top animated line */
+.ben-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, #f97316, #f59e0b);
+
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Hover animation */
+.ben-card:hover::before {
+  transform: scaleX(1);
+}

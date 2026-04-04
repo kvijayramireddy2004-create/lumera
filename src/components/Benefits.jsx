@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import useScrollAnimations from "../hooks/useScrollAnimations";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -45,6 +45,29 @@ function BenCard({ card }) {
   const [hov, setHov] = useState(false);
   const counterRef = useRef();
 
+  useEffect(() => {
+    if (!card.animate) return;
+
+    const el = counterRef.current;
+    const obj = { val: 0 };
+
+    gsap.to(obj, {
+      val: card.target,
+      duration: 1.2,
+      ease: "power2.out",
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%",
+        once: true,
+      },
+      onUpdate: () => {
+        if (el) {
+          el.innerText = Math.floor(obj.val) + card.suffix;
+        }
+      },
+    });
+  }, [card]);
+
   return (
     <div
       className="ben-card reveal-card"
@@ -62,8 +85,11 @@ function BenCard({ card }) {
           : "translateY(0) scale(1)",
         willChange: "transform, opacity",
         contain: "layout paint",
+        position: "relative", // 🔥 required for line
+        overflow: "hidden", // 🔥 required for line
       }}
     >
+      {/* Number */}
       <div
         ref={counterRef}
         style={{
@@ -76,10 +102,13 @@ function BenCard({ card }) {
           marginBottom: "0.4rem",
         }}
       >
-        {card.num}
+        {card.animate ? "0%" : card.num}
       </div>
 
+      {/* Title */}
       <div style={{ fontWeight: 700 }}>{card.title}</div>
+
+      {/* Description */}
       <div style={{ fontSize: "0.85rem", color: "#64748B" }}>{card.desc}</div>
     </div>
   );
@@ -99,6 +128,7 @@ export default function Benefits() {
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
+        {/* Header */}
         <div
           className="reveal-up"
           style={{
