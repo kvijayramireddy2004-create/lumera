@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import logo from "../assets/logo.png";
 
 const LINKS = [
   { label: "About", href: "#about" },
@@ -83,17 +84,16 @@ export default function Navbar() {
         style={styles.logoWrap}
         onClick={(e) => handleAnchor(e, "#home")}
       >
-        <svg width="36" height="36" viewBox="0 0 46 46" fill="none">
-          <path
-            d="M8 40 L22 7 L32 22 H25 L37 40 Z"
-            fill={solid ? "#1B2E52" : "rgba(255,255,255,0.9)"}
-          />
-          <path d="M25 5 L38 1 L31 20 Z" fill="#FCD34D" />
-          <path d="M22 7 L31 20 L25 5 Z" fill="#F97316" />
-        </svg>
-        <span style={styles.logoText(solid)}>
-          LUMERA <span style={{ color: "#F97316" }}>ENERGY</span>
-        </span>
+        <img
+          src={logo}
+          alt="Lumera Energy"
+          style={{
+            height: "100px",
+            width: "auto",
+            filter: solid ? "none" : "brightness(0) invert(1)",
+            transition: "filter 0.38s cubic-bezier(0.4,0,0.2,1)",
+          }}
+        />
       </a>
 
       {/* Links */}
