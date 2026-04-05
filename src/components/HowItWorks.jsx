@@ -70,7 +70,7 @@ export default function HowItWorks() {
   }, [])
 
   return (
-    <section id="hiw" ref={sRef} style={{ background: '#FFFFFF', padding: '7rem 5rem' }}>
+    <section id="hiw" ref={sRef} className="section-py" style={{ background: '#FFFFFF' }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
 
         {/* Header */}
@@ -91,14 +91,14 @@ export default function HowItWorks() {
         {/* Steps */}
         <div style={{ position: 'relative' }}>
           {/* Connector line */}
-          <div className="hiw-line" style={{
+          <div className="hiw-line hiw-line-desktop" style={{
             position: 'absolute', top: '29px',
             left: 'calc(12.5% + 30px)', right: 'calc(12.5% + 30px)',
             height: '1.5px',
             background: 'linear-gradient(to right, #F97316, rgba(249,115,22,0.15))',
           }} />
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' }}>
+          <div className="hiw-steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '2rem' }}>
             {STEPS.map((s, i) => <Step key={i} {...s} index={i} />)}
           </div>
         </div>

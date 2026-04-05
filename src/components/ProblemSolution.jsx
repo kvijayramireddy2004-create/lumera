@@ -151,9 +151,9 @@ export default function ProblemSolution() {
     <section
       id="solution"
       ref={sRef}
+      className="section-py"
       style={{
         background: "#FFF7ED",
-        padding: "7rem 5rem",
         minHeight: "100vh",
         position: "relative",
         zIndex: 1,
@@ -185,6 +185,7 @@ export default function ProblemSolution() {
 
         {/* Grid */}
         <div
+          className="ps-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr",
@@ -244,6 +245,7 @@ export default function ProblemSolution() {
 
           {/* Solutions */}
           <div
+            className="sol-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",

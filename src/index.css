@@ -249,8 +249,8 @@ h4 {
 }
 @media (max-width: 768px) {
   :root {
-    --section-x: 1.5rem;
-    --section-y: 5rem;
+    --section-x: 1.25rem;
+    --section-y: 4rem;
   }
   h1 {
     font-size: 2.8rem !important;
@@ -258,7 +258,119 @@ h4 {
 }
 @media (max-width: 480px) {
   :root {
-    --section-x: 1.2rem;
+    --section-x: 1rem;
+    --section-y: 3.5rem;
+  }
+}
+
+/* ── Navbar ── */
+.lumera-nav {
+  padding-left: var(--section-x) !important;
+  padding-right: var(--section-x) !important;
+}
+@media (max-width: 768px) {
+  .nav-links-desktop,
+  .nav-cta-desktop {
+    display: none !important;
+  }
+  .nav-hamburger {
+    display: flex !important;
+  }
+}
+
+/* ── Hero ── */
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 7rem 1.25rem 2rem !important;
+    max-width: 100% !important;
+  }
+  .hero-stats {
+    padding: 0 1.25rem 3rem !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* ── About ── */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+  .about-img-el {
+    height: 260px !important;
+  }
+}
+
+/* ── Problem & Solution ── */
+@media (max-width: 900px) {
+  .ps-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+@media (max-width: 480px) {
+  .sol-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── How It Works ── */
+@media (max-width: 900px) {
+  .hiw-steps-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .hiw-line-desktop {
+    display: none !important;
+  }
+}
+@media (max-width: 480px) {
+  .hiw-steps-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Benefits ── */
+@media (max-width: 900px) {
+  .ben-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .ben-card-wide {
+    grid-column: span 2 !important;
+  }
+}
+@media (max-width: 480px) {
+  .ben-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .ben-card-wide {
+    grid-column: span 1 !important;
+  }
+}
+
+/* ── Contact ── */
+@media (max-width: 900px) {
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 2.5rem !important;
+  }
+}
+@media (max-width: 600px) {
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ── Footer ── */
+.footer-wrap {
+  padding: 2.6rem var(--section-x);
+}
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  .footer-inner nav {
+    justify-content: center !important;
   }
 }
 

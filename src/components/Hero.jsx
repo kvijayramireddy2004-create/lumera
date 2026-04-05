@@ -23,7 +23,7 @@ export default function Hero() {
     <section
       style={{
         position: "relative",
-        height: "100vh",
+        minHeight: "100vh",
         overflow: "hidden",
         background: "#0A0E16",
       }}
@@ -57,7 +57,7 @@ export default function Hero() {
         }}
       />
 
-      {/* ☀️ SUN GLOW OVERLAY (VERY IMPORTANT) */}
+      {/* Sun glow overlay */}
       <div
         style={{
           position: "absolute",
@@ -87,12 +87,13 @@ export default function Hero() {
       {/* CONTENT */}
       <div
         ref={ref}
+        className="hero-content"
         style={{
           position: "relative",
           zIndex: 2,
           padding: "5rem",
           maxWidth: "720px",
-          marginTop: "2.5rem",
+          paddingTop: "10rem",
         }}
       >
         {/* Badge */}
@@ -114,7 +115,7 @@ export default function Hero() {
             marginBottom: "1.5rem",
           }}
         >
-          ● INDIA’S INDUSTRIAL SOLAR PARTNER
+          ● INDIA'S INDUSTRIAL SOLAR PARTNER
         </div>
 
         {/* Title */}
@@ -122,7 +123,7 @@ export default function Hero() {
           className="hero-title"
           style={{
             fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: "clamp(3.5rem, 7vw, 6rem)",
+            fontSize: "clamp(3rem, 7vw, 6rem)",
             fontWeight: 900,
             lineHeight: 0.92,
             textTransform: "uppercase",
@@ -163,13 +164,14 @@ export default function Hero() {
 
       {/* Stats */}
       <div
+        className="hero-stats"
         style={{
-          position: "absolute",
-          bottom: "3.5rem",
-          left: "5rem",
+          position: "relative",
+          zIndex: 2,
+          padding: "0 5rem 4rem",
           display: "flex",
           gap: "3rem",
-          zIndex: 2,
+          flexWrap: "wrap",
         }}
       >
         {[

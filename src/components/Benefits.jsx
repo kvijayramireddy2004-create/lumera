@@ -70,7 +70,7 @@ function BenCard({ card }) {
 
   return (
     <div
-      className="ben-card reveal-card"
+      className={`ben-card reveal-card${card.wide ? " ben-card-wide" : ""}`}
       onMouseEnter={() => setHov(true)}
       onMouseLeave={() => setHov(false)}
       style={{
@@ -122,9 +122,9 @@ export default function Benefits() {
     <section
       ref={ref}
       id="benefits"
+      className="section-py"
       style={{
         background: "linear-gradient(135deg,#FFFBEB,#FFF7ED,#FFFFFF)",
-        padding: "7rem 5rem",
       }}
     >
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>

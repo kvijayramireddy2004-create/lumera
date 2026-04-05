@@ -104,8 +104,8 @@ export default function Contact() {
     <section
       id="contact"
       ref={sRef}
+      className="section-py"
       style={{
-        padding: "7rem 5rem",
         position: "relative",
         overflow: "hidden",
         background:
@@ -207,6 +207,7 @@ export default function Contact() {
 
         {/* Grid */}
         <div
+          className="contact-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1.6fr",
@@ -322,6 +323,7 @@ export default function Contact() {
             style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
           >
             <div
+              className="form-row"
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
@@ -348,6 +350,7 @@ export default function Contact() {
               </FormField>
             </div>
             <div
+              className="form-row"
               style={{
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",

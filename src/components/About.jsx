@@ -32,15 +32,15 @@ export default function About() {
   }, [])
 
   return (
-    <section id="about" ref={sRef} style={{ background: '#FFFFFF', padding: '7rem 5rem' }}>
-      <div style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
+    <section id="about" ref={sRef} className="section-py" style={{ background: '#FFFFFF' }}>
+      <div className="about-grid" style={{ maxWidth: '1280px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'center' }}>
 
         {/* Image */}
         <div className="about-img" style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.14)' }}>
           <img
             src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=900&q=80"
             alt="Solar Farm"
-            style={{ width: '100%', height: '420px', objectFit: 'cover', display: 'block' }}
+            className="about-img-el" style={{ width: '100%', height: '420px', objectFit: 'cover', display: 'block' }}
             loading="lazy"
           />
           {/* Orange gradient overlay */}
