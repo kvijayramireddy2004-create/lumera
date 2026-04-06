@@ -1,3 +1,5 @@
+import logo from "../assets/logo.png";
+
 const links = ["About", "Solution", "How It Works", "Benefits", "Contact"];
 const hrefs = ["#about", "#solution", "#hiw", "#benefits", "#contact"];
 
@@ -30,24 +32,7 @@ export default function Footer() {
         }}
       >
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.65rem" }}>
-          <svg width="32" height="32" viewBox="0 0 46 46" fill="none">
-            <path d="M8 40 L22 7 L32 22 H25 L37 40 Z" fill="#1B2E52" />
-            <path d="M25 5 L38 1 L31 20 Z" fill="#FCD34D" />
-            <path d="M22 7 L31 20 L25 5 Z" fill="#F97316" />
-          </svg>
-          <span
-            style={{
-              fontFamily: "'Barlow Condensed',sans-serif",
-              fontSize: "1.05rem",
-              fontWeight: 800,
-              letterSpacing: "0.07em",
-              color: "#fff",
-            }}
-          >
-            LUMERA <span style={{ color: "#F97316" }}>ENERGY</span>
-          </span>
-        </div>
+        <img src={logo} alt="Lumera Energy" style={{ height: "70px", width: "auto", filter: "brightness(0) invert(1)" }} />
 
         {/* Links */}
         <nav style={{ display: "flex", gap: "2rem", flexWrap: "wrap" }}>
