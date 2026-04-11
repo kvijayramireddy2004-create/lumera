@@ -259,40 +259,63 @@ export default function Navbar() {
           style={{
             position: "fixed",
             inset: 0,
+            height: "100dvh",
             background: "#fff",
             zIndex: 999,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "flex-start",
-            gap: "1.25rem",
-            paddingTop: "calc(68px + 1.5rem)",
-            paddingBottom: "2rem",
+            justifyContent: "space-between",
+            gap: "2.75rem",
+            padding: `calc(${navHeight} + 2rem) clamp(1.5rem, 7vw, 2.5rem) calc(max(2.25rem, env(safe-area-inset-bottom)))`,
+            boxSizing: "border-box",
             overflowY: "auto",
           }}
         >
-          {LINKS.map(({ label, href }) => (
-            <a
-              key={href}
-              href={href}
-              onClick={(e) => go(e, href)}
-              style={{
-                fontSize: "1.4rem",
-                fontWeight: 700,
-                letterSpacing: "0.05em",
-                color: "#111",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => (e.target.style.color = "var(--orange)")}
-              onMouseLeave={(e) => (e.target.style.color = "#111")}
-            >
-              {label}
-            </a>
-          ))}
+          <div
+            style={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "1.8rem",
+              flex: 1,
+              maxWidth: "420px",
+            }}
+          >
+            {LINKS.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                onClick={(e) => go(e, href)}
+                style={{
+                  fontSize: "clamp(2rem, 8vw, 2.6rem)",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  lineHeight: 1.1,
+                  color: "#111",
+                  textDecoration: "none",
+                  width: "100%",
+                  textAlign: "center",
+                }}
+                onMouseEnter={(e) => (e.target.style.color = "var(--orange)")}
+                onMouseLeave={(e) => (e.target.style.color = "#111")}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
           <a
             href="#contact"
             className="btn-pill btn-dark"
-            style={{ marginTop: "1rem" }}
+            style={{
+              width: "100%",
+              maxWidth: "420px",
+              justifyContent: "space-between",
+              fontSize: "1.05rem",
+              padding: "0.6rem 0.55rem 0.6rem 1.6rem",
+            }}
             onClick={(e) => go(e, "#contact")}
           >
             Get Free Audit <span className="arrow">→</span>
@@ -305,10 +328,10 @@ export default function Navbar() {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
         }
-        @media (max-width: 460px) {
+        @media (max-width: 768px) {
           #mobile-menu .btn-pill {
-            width: calc(100% - 2.5rem);
-            max-width: 320px;
+            width: 100%;
+            max-width: 420px;
             justify-content: space-between;
           }
         }
