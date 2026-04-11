@@ -63,16 +63,30 @@ export default function Contact() {
             }}>Reach Us Directly</h3>
 
             {[
-              { icon: "📞", label: "Phone", content: (<><a href="tel:+919550800865" style={{ color: "#fff", textDecoration: "none" }}>+91 9550800865</a><br /><a href="tel:+919494929955" style={{ color: "#fff", textDecoration: "none" }}>+91 9494929955</a></>) },
-              { icon: "✉️", label: "Email", content: (<a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "#fff", textDecoration: "none" }}>harshavardhanravana@lumeraenergy.in</a>) },
-              { icon: "🌐", label: "Website", content: (<a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "none" }}>lumeraenergy.in <span className="sr-only">(opens in new tab)</span></a>) },
+              { icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              ), label: "Phone", content: (<><a href="tel:+919550800865" style={{ color: "#fff", textDecoration: "none" }}>+91 9550800865</a><br /><a href="tel:+919494929955" style={{ color: "#fff", textDecoration: "none" }}>+91 9494929955</a></>) },
+              { icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="M22 4l-10 8L2 4" />
+                </svg>
+              ), label: "Email", content: (<a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "#fff", textDecoration: "none" }}>harshavardhanravana@lumeraenergy.in</a>) },
+              { icon: (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+              ), label: "Website", content: (<a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "none" }}>lumeraenergy.in <span className="sr-only">(opens in new tab)</span></a>) },
             ].map(({ icon, label, content }) => (
               <div key={label} style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem", alignItems: "flex-start" }}>
                 <div style={{
-                  width: "40px", height: "40px", borderRadius: "10px", flexShrink: 0,
-                  background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
-                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem",
-                }}><span aria-hidden="true">{icon}</span></div>
+                  width: "42px", height: "42px", borderRadius: "12px", flexShrink: 0,
+                  background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.18)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }} aria-hidden="true">{icon}</div>
                 <div>
                   <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-white-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.2rem" }}>{label}</div>
                   <div style={{ fontSize: "0.88rem", lineHeight: 1.6 }}>{content}</div>

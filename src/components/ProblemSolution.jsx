@@ -1,106 +1,200 @@
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── SVG Icons ── */
+function AlertCircle() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M12 8v4m0 4h.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+function WalletIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="2" y="6" width="20" height="14" rx="3" stroke="currentColor" strokeWidth="1.6" />
+      <path d="M2 10h20M16 14.5h2" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M6 6V5a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3v1" stroke="currentColor" strokeWidth="1.6" />
+    </svg>
+  );
+}
+function PlugIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 22v-5m0 0a5 5 0 0 0 5-5V8H7v4a5 5 0 0 0 5 5zM9 2v4m6-4v4" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function ShieldIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M12 2l8 4v5c0 5.25-3.5 10.74-8 12-4.5-1.26-8-6.75-8-12V6l8-4z" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" />
+      <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+function WrenchIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 const PROBLEMS = [
-  "High base energy tariff from grid utilities",
-  "Fuel & Power Purchase Cost Adjustment (FPPCA)",
-  "Recurring fuel surcharge adjustments",
-  "Unpredictable periodic tariff revisions",
+  { tag: "Tariff Hike", text: "Base energy tariff from grid utilities escalates year over year" },
+  { tag: "FPPCA", text: "Fuel & Power Purchase Cost Adjustments add unpredictable surcharges" },
+  { tag: "Surcharge", text: "Recurring fuel surcharge revisions steadily erode operating margins" },
+  { tag: "Uncertainty", text: "Zero long-term pricing visibility makes energy budgeting impossible" },
 ];
 
 const SOLUTIONS = [
-  { title: "Zero Upfront Cost", desc: "No capital expenditure. We invest, build, and own the solar plant. You pay only for power consumed." },
-  { title: "Lower Electricity Cost", desc: "Save 20–40% vs your current grid tariff starting from day one of supply." },
-  { title: "Predictable Tariff", desc: "Fixed locked-in rate protects your margins from market and policy volatility." },
-  { title: "Clean Renewable Supply", desc: "100% solar power. Strengthen your ESG credentials and sustainability goals." },
+  {
+    icon: <WalletIcon />,
+    title: "We Build It",
+    desc: "Lumera finances, designs, and constructs a solar plant sized precisely for your facility — zero capital from you.",
+  },
+  {
+    icon: <PlugIcon />,
+    title: "You Use It",
+    desc: "Clean solar electricity delivered directly to your industrial facility through the grid — reliable and consistent.",
+  },
+  {
+    icon: <ShieldIcon />,
+    title: "Fixed Rate",
+    desc: "A locked-in tariff through a long-term PPA protects your margins from every future market revision.",
+  },
+  {
+    icon: <WrenchIcon />,
+    title: "We Maintain It",
+    desc: "Lumera handles all operations, maintenance, and monitoring — you simply consume the power.",
+  },
 ];
 
-function BoltIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
-      <path
-        d="M13.5 2.5L5.5 13h5l-1 8.5 8-10.5h-5l1-8.5z"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function TrendUpIcon() {
-  return (
-    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
-      <path d="M4.5 16l5.2-5.2 3.2 3.2 6.6-6.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M14.5 7.4h5v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function ProblemSolution() {
-  return (
-    <section id="solution" className="section" style={{ background: "var(--bg-white)" }}>
-      <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
+  const sectionRef = useRef(null);
+  const lineRef = useRef(null);
+  const headRef = useRef(null);
+  const arrowColRef = useRef(null);
 
-        {/* Header */}
-        <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "650px", margin: "0 auto 5rem" }}>
-          <div className="eyebrow" style={{ color: "var(--text-light)" }}>The Challenge &amp; Our Answer</div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95 }}>
-            Why Bills Keep Rising —{" "}
-            <span className="grad-text">And Our Fix</span>
+  useEffect(() => {
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (prefersReduced || !lineRef.current || !headRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const isMobile = window.matchMedia("(max-width: 900px)").matches;
+      const travelDistance = isMobile
+        ? Math.max((lineRef.current?.offsetWidth ?? 0) + 10, 60)
+        : Math.max((lineRef.current?.offsetHeight ?? 0) + 10, 220);
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top 60%",
+          end: "bottom 70%",
+          scrub: 0.6,
+        },
+      });
+
+      tl.fromTo(
+        lineRef.current,
+        isMobile ? { scaleX: 0 } : { scaleY: 0 },
+        isMobile ? { scaleX: 1, ease: "none" } : { scaleY: 1, ease: "none" },
+        0
+      );
+
+      tl.fromTo(
+        headRef.current,
+        isMobile
+          ? { x: -travelDistance, scale: 0.6, opacity: 0 }
+          : { y: -travelDistance, scale: 0.6, opacity: 0 },
+        isMobile
+          ? { x: 0, scale: 1, opacity: 1, ease: "power2.out" }
+          : { y: 0, scale: 1, opacity: 1, ease: "power2.out" },
+        0.05
+      );
+
+      tl.fromTo(
+        headRef.current,
+        { boxShadow: "0 0 0px rgba(249,115,22,0)" },
+        { boxShadow: "0 0 28px rgba(249,115,22,0.45)", ease: "none" },
+        0.5
+      );
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="solution" className="section ps-section" ref={sectionRef}>
+      <div className="ps-container">
+        {/* ── Header ── */}
+        <div className="ps-header reveal-up">
+          <div className="eyebrow" style={{ color: "var(--text-light)" }}>
+            The Challenge &amp; Our Answer
+          </div>
+          <h2 className="ps-heading">
+            Your energy costs are{" "}
+            <span className="grad-text">rising</span>.
+            <br />
+            Here's how we fix it.
           </h2>
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem" }} className="ps-grid">
-
-          {/* Problem Card */}
-          <div style={{
-            background: "var(--bg-white)", borderRadius: "20px",
-            padding: "2.5rem", border: "1px solid var(--border-light)",
-          }}>
-            <h3 style={{
-              fontSize: "1.3rem",
-              fontWeight: 700, marginBottom: "1.8rem",
-              display: "flex", alignItems: "center", gap: "0.75rem", lineHeight: 1.3,
-            }}>
-              <span className="ps-heading-icon" aria-hidden="true">
-                <BoltIcon />
-              </span>
-              Why Your Bills Keep Rising
+        <div className="ps-grid">
+          {/* ── Problem ── */}
+          <div className="ps-problem reveal-left">
+            <div className="ps-problem-badge">The Problem</div>
+            <h3 className="ps-problem-title">
+              Why your electricity bills keep climbing
             </h3>
-
-            <ul style={{ listStyle: "none" }}>
+            <p className="ps-problem-subtitle">
+              Indian industrial tariffs have risen 8–12% annually. Four
+              structural forces drive this:
+            </p>
+            <ul className="ps-problem-list">
               {PROBLEMS.map((p, i) => (
-                <li key={i} style={{
-                  display: "flex", gap: "0.75rem", alignItems: "flex-start",
-                  padding: "0.8rem 0",
-                  borderBottom: i < PROBLEMS.length - 1 ? "1px solid var(--border-light)" : "none",
-                  fontSize: "0.9rem", color: "var(--text-secondary)",
-                }}>
-                  <span className="ps-list-icon" aria-hidden="true">
-                    <TrendUpIcon />
-                  </span>
-                  <span>Rising cost: {p}</span>
+                <li key={i} className="ps-problem-item">
+                  <div className="ps-problem-icon">
+                    <AlertCircle />
+                  </div>
+                  <div>
+                    <span className="ps-problem-tag">{p.tag}</span>
+                    <p className="ps-problem-text">{p.text}</p>
+                  </div>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Solutions Grid */}
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="sol-grid">
+          {/* ── Arrow / transition ── */}
+          <div className="ps-arrow-col" ref={arrowColRef} aria-hidden="true">
+            <div className="ps-arrow-track">
+              <div className="ps-arrow-line" ref={lineRef} />
+              <div className="ps-arrow-head" ref={headRef}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5v14m0 0l-6-6m6 6l6-6" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          {/* ── Solutions ── */}
+          <div className="ps-solutions stagger-children">
+            <div className="ps-sol-badge">Our Solution</div>
             {SOLUTIONS.map((s, i) => (
-              <div key={i} style={{
-                background: "var(--bg-white)", borderRadius: "16px",
-                padding: "1.8rem", border: "1px solid var(--border-light)",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease",
-              }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.08)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <h3 style={{
-                  fontSize: "0.95rem",
-                  fontWeight: 700,
-                  letterSpacing: "0.03em", marginBottom: "0.6rem", lineHeight: 1.3,
-                }}>{s.title}</h3>
-                <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.65 }}>{s.desc}</p>
+              <div key={i} className="ps-sol-card">
+                <div className="ps-sol-icon">{s.icon}</div>
+                <div>
+                  <h3 className="ps-sol-title">{s.title}</h3>
+                  <p className="ps-sol-desc">{s.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -108,34 +202,215 @@ export default function ProblemSolution() {
       </div>
 
       <style>{`
-        @media (max-width: 900px) { .ps-grid { grid-template-columns: 1fr !important; } }
-        @media (max-width: 480px) { .sol-grid { grid-template-columns: 1fr !important; } }
-
-        .ps-heading-icon {
-          width: 1.9rem;
-          height: 1.9rem;
-          border-radius: 999px;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          color: #d97706;
-          background: rgba(245, 158, 11, 0.12);
-          border: 1px solid rgba(245, 158, 11, 0.28);
-          flex-shrink: 0;
+        .ps-section {
+          background:
+            radial-gradient(ellipse 900px 500px at 10% 0%, rgba(249,115,22,0.04) 0%, transparent 70%),
+            var(--bg-white);
+        }
+        .ps-container {
+          max-width: var(--max-w);
+          margin: 0 auto;
+        }
+        .ps-header {
+          text-align: center;
+          max-width: 620px;
+          margin: 0 auto 5rem;
+        }
+        .ps-heading {
+          font-size: clamp(2rem, 4.2vw, 3rem);
+          line-height: 1.1;
+          letter-spacing: -0.03em;
         }
 
-        .ps-list-icon {
-          width: 1.3rem;
-          height: 1.3rem;
-          border-radius: 999px;
-          display: inline-flex;
+        /* ── Grid ── */
+        .ps-grid {
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          gap: 2rem;
+          align-items: start;
+        }
+
+        /* ── Problem card ── */
+        .ps-problem {
+          background: #0f1117;
+          border-radius: 22px;
+          padding: 2.4rem;
+          color: #fff;
+        }
+        .ps-problem-badge {
+          display: inline-block;
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: #f87171;
+          background: rgba(248, 113, 113, 0.12);
+          border: 1px solid rgba(248, 113, 113, 0.2);
+          border-radius: 100px;
+          padding: 0.35rem 0.9rem;
+          margin-bottom: 1.5rem;
+        }
+        .ps-problem-title {
+          font-size: 1.25rem;
+          font-weight: 700;
+          line-height: 1.3;
+          margin-bottom: 0.6rem;
+          color: #fff;
+        }
+        .ps-problem-subtitle {
+          font-size: 0.82rem;
+          color: rgba(255,255,255,0.5);
+          line-height: 1.6;
+          margin-bottom: 1.8rem;
+        }
+        .ps-problem-list {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          gap: 0.2rem;
+        }
+        .ps-problem-item {
+          display: flex;
+          gap: 0.9rem;
+          align-items: flex-start;
+          padding: 0.9rem 0;
+          border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+        .ps-problem-item:last-child { border-bottom: none; }
+        .ps-problem-icon {
+          width: 30px;
+          height: 30px;
+          border-radius: 8px;
+          display: flex;
           align-items: center;
           justify-content: center;
-          color: #dc2626;
-          background: rgba(220, 38, 38, 0.1);
-          border: 1px solid rgba(220, 38, 38, 0.24);
+          background: rgba(248, 113, 113, 0.1);
+          color: #f87171;
           flex-shrink: 0;
-          margin-top: 1px;
+          margin-top: 2px;
+        }
+        .ps-problem-tag {
+          display: inline-block;
+          font-size: 0.65rem;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          color: rgba(248, 113, 113, 0.8);
+          margin-bottom: 0.25rem;
+        }
+        .ps-problem-text {
+          font-size: 0.86rem;
+          color: rgba(255,255,255,0.6);
+          line-height: 1.55;
+        }
+
+        /* ── Arrow connector ── */
+        .ps-arrow-col {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 48px;
+          padding-top: 3rem;
+        }
+        .ps-arrow-track {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          height: 100%;
+          min-height: 280px;
+          position: relative;
+        }
+        .ps-arrow-line {
+          width: 2px;
+          flex: 1;
+          background: linear-gradient(180deg, var(--border-light) 0%, var(--orange) 100%);
+          border-radius: 2px;
+          transform-origin: top center;
+        }
+        .ps-arrow-head {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          background: var(--orange);
+          color: #fff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+          margin-top: 0.5rem;
+        }
+
+        /* ── Solution cards ── */
+        .ps-solutions {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+        }
+        .ps-sol-badge {
+          display: inline-block;
+          font-size: 0.62rem;
+          font-weight: 700;
+          letter-spacing: 0.14em;
+          text-transform: uppercase;
+          color: var(--orange);
+          background: rgba(249, 115, 22, 0.08);
+          border: 1px solid rgba(249, 115, 22, 0.2);
+          border-radius: 100px;
+          padding: 0.35rem 0.9rem;
+          margin-bottom: 0.6rem;
+          align-self: flex-start;
+        }
+        .ps-sol-card {
+          display: flex;
+          gap: 1.1rem;
+          align-items: flex-start;
+          padding: 1.4rem 1.5rem;
+          border-radius: 16px;
+          border: 1px solid var(--border-light);
+          background: var(--bg-white);
+          transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+        }
+        .ps-sol-card:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 16px 40px rgba(0, 0, 0, 0.06);
+          border-color: rgba(249, 115, 22, 0.25);
+        }
+        .ps-sol-icon {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(249, 115, 22, 0.08);
+          color: var(--orange);
+          flex-shrink: 0;
+        }
+        .ps-sol-title {
+          font-size: 0.95rem;
+          font-weight: 700;
+          margin-bottom: 0.3rem;
+          line-height: 1.3;
+        }
+        .ps-sol-desc {
+          font-size: 0.84rem;
+          color: var(--text-muted);
+          line-height: 1.65;
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 900px) {
+          .ps-grid {
+            grid-template-columns: 1fr !important;
+            gap: 2rem !important;
+          }
+          .ps-arrow-col {
+            display: none;
+          }
+        }
+        @media (max-width: 480px) {
+          .ps-problem { padding: 1.6rem; }
+          .ps-sol-card { padding: 1.1rem; }
         }
       `}</style>
     </section>

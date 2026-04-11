@@ -1,80 +1,199 @@
 const STEPS = [
-  { num: "01", title: "Lumera Builds", desc: "We develop and own a solar power plant sized precisely for your industrial consumption profile." },
-  { num: "02", title: "Power Generated", desc: "Clean solar electricity is generated consistently and reliably at scale, year-round." },
-  { num: "03", title: "Supplied to You", desc: "Electricity flows directly to your industrial facility without interruption." },
-  { num: "04", title: "PPA Agreement", desc: "You pay a stable, pre-agreed tariff through a long-term Power Purchase Agreement." },
+  {
+    num: "01",
+    title: "Site Assessment",
+    desc: "We analyse your consumption profile, location, and energy needs to design the optimal solar solution for your facility.",
+  },
+  {
+    num: "02",
+    title: "Plant Construction",
+    desc: "Lumera finances and builds a solar power plant custom-sized for your industrial facility — zero capital from you.",
+  },
+  {
+    num: "03",
+    title: "Power Delivery",
+    desc: "Clean solar electricity flows to your facility through the grid — reliable, consistent, year-round supply.",
+  },
+  {
+    num: "04",
+    title: "PPA Billing",
+    desc: "You pay only for power consumed at a fixed, pre-agreed tariff. Simple, predictable, transparent.",
+  },
 ];
 
 export default function HowItWorks() {
-  return (
-    <section id="hiw" className="section section--dark">
-      <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
+  const scrollTo = (id) => (e) => {
+    e.preventDefault();
+    document.querySelector(id)?.scrollIntoView({ behavior: "smooth" });
+  };
 
-        <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "550px", margin: "0 auto 5rem" }}>
+  return (
+    <section id="hiw" className="section section--dark hiw-section">
+      <div className="hiw-container">
+        {/* ── Header ── */}
+        <div className="hiw-header reveal-up">
           <div className="eyebrow eyebrow--light">The Process</div>
-          <h2 style={{
-            fontSize: "clamp(2rem, 4vw, 3rem)",
-            lineHeight: 0.95, color: "#fff",
-          }}>
-            How It <span className="grad-text">Works</span>
+          <h2 className="hiw-heading">
+            From assessment to power.
+            <br />
+            <span className="grad-text">Four simple steps.</span>
           </h2>
-          <p style={{ color: "var(--text-white-muted)", fontSize: "0.95rem", marginTop: "1.5rem", lineHeight: 1.75 }}>
-            A streamlined 4-step model that gives your industry clean power with zero complexity or capital risk.
+          <p className="hiw-subtitle">
+            A streamlined model that gives your industry clean power with zero
+            complexity or capital risk.
           </p>
         </div>
 
-        <div style={{
-          display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem",
-        }} className="hiw-grid">
+        {/* ── Timeline ── */}
+        <div className="hiw-timeline stagger-children">
           {STEPS.map((s) => (
-            <div key={s.num} className="hiw-step" style={{ textAlign: "center" }}>
-              <div className="hiw-step-badge">{String(Number(s.num))}</div>
-              <h3 style={{
-                fontSize: "1rem",
-                fontWeight: 700,
-                letterSpacing: "0.04em", color: "#fff",
-                marginBottom: "0.7rem", lineHeight: 1.3,
-              }}>{s.title}</h3>
-              <p style={{ fontSize: "0.82rem", color: "var(--text-white-muted)", lineHeight: 1.7 }}>{s.desc}</p>
+            <div key={s.num} className="hiw-card">
+              <div className="hiw-card-inner">
+                <h3 className="hiw-card-title">{s.title}</h3>
+                <p className="hiw-card-desc">{s.desc}</p>
+              </div>
+              <span className="hiw-card-watermark" aria-hidden="true">
+                {s.num}
+              </span>
             </div>
           ))}
         </div>
 
-        <div style={{ textAlign: "center", marginTop: "4rem" }}>
-          <p style={{ color: "var(--text-white-muted)", fontSize: "0.88rem", fontStyle: "italic", marginBottom: "2rem" }}>
-            This allows industries to reduce operational energy costs without any capital investment.
-          </p>
-          <a href="#contact" className="btn-pill btn-orange"
-            onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
+        {/* ── CTA ── */}
+        <div className="hiw-cta reveal-up">
+          <a
+            href="#contact"
+            className="btn-pill btn-orange"
+            onClick={scrollTo("#contact")}
+          >
             Get Your Free Energy Audit <span className="arrow">→</span>
           </a>
         </div>
       </div>
 
       <style>{`
-        .hiw-step {
-          transition: transform 220ms ease;
+        .hiw-section {
+          background:
+            radial-gradient(ellipse 600px 400px at 85% 10%, rgba(249,115,22,0.06) 0%, transparent 70%),
+            radial-gradient(ellipse 500px 350px at 5% 90%, rgba(249,115,22,0.04) 0%, transparent 70%),
+            var(--bg-dark);
+          overflow: hidden;
         }
-        .hiw-step:hover {
-          transform: translateY(-4px);
+        .hiw-container {
+          max-width: var(--max-w);
+          margin: 0 auto;
         }
-        .hiw-step-badge {
-          margin: 0 auto 1rem;
-          display: inline-block;
+        .hiw-header {
+          text-align: center;
+          max-width: 580px;
+          margin: 0 auto 5rem;
+        }
+        .hiw-heading {
+          font-size: clamp(2rem, 4.2vw, 3rem);
+          line-height: 1.1;
+          color: #fff;
+          letter-spacing: -0.03em;
+        }
+        .hiw-subtitle {
+          color: var(--text-white-muted);
+          font-size: 0.95rem;
+          margin-top: 1.5rem;
+          line-height: 1.75;
+        }
+
+        /* ── Timeline ── */
+        .hiw-timeline {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 1.2rem;
+        }
+
+        /* ── Card ── */
+        .hiw-card {
+          position: relative;
+          overflow: hidden;
+          border-radius: 18px;
+          padding: 2rem 2.2rem;
+          background:
+            linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.05) 0%,
+              rgba(255, 255, 255, 0.02) 100%
+            );
+          border: 1px solid rgba(255, 255, 255, 0.07);
+          transition: border-color 0.35s ease, background 0.35s ease;
+        }
+        .hiw-card:hover {
+          border-color: rgba(249, 115, 22, 0.2);
+          background:
+            linear-gradient(
+              135deg,
+              rgba(255, 255, 255, 0.07) 0%,
+              rgba(255, 255, 255, 0.03) 100%
+            );
+        }
+        .hiw-card-inner {
+          position: relative;
+          z-index: 2;
+        }
+        .hiw-card-title {
+          font-size: 1.15rem;
+          font-weight: 700;
+          color: #fff;
+          margin-bottom: 0.55rem;
+          line-height: 1.3;
+          letter-spacing: -0.01em;
+        }
+        .hiw-card-desc {
+          font-size: 0.9rem;
+          color: var(--text-white-muted);
+          line-height: 1.75;
+          max-width: 70%;
+        }
+
+        /* ── Watermark ── */
+        .hiw-card-watermark {
+          position: absolute;
+          bottom: 0.4rem;
+          right: 1.2rem;
           font-family: var(--font-display);
-          font-size: clamp(2.2rem, 4vw, 2.8rem);
+          font-size: clamp(5rem, 9vw, 7rem);
           font-weight: 900;
+          color: rgba(255, 255, 255, 0.015);
           line-height: 1;
-          color: #f97316;
-          text-shadow: 0 0 22px rgba(249, 115, 22, 0.25);
-          transition: text-shadow 220ms ease, transform 220ms ease;
+          letter-spacing: -0.04em;
+          pointer-events: none;
+          user-select: none;
+          z-index: 1;
+          transition: color 0.4s ease;
         }
-        .hiw-step:hover .hiw-step-badge {
-          transform: translateY(-2px);
-          text-shadow: 0 0 28px rgba(249, 115, 22, 0.35);
+        .hiw-card:hover .hiw-card-watermark {
+          color: rgba(249, 115, 22, 0.035);
         }
-        @media (max-width: 900px) { .hiw-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 3rem !important; } }
-        @media (max-width: 480px) { .hiw-grid { grid-template-columns: 1fr !important; } }
+
+        /* ── CTA ── */
+        .hiw-cta {
+          text-align: center;
+          margin-top: 5.5rem;
+        }
+
+        /* ── Responsive ── */
+        @media (prefers-reduced-motion: reduce) {
+          .hiw-node { transition: none; }
+          .hiw-row:hover .hiw-node { transform: none; }
+        }
+        @media (max-width: 600px) {
+          .hiw-timeline {
+            grid-template-columns: 1fr !important;
+          }
+          .hiw-card {
+            padding: 1.6rem 1.3rem;
+          }
+          .hiw-card-watermark {
+            font-size: 3.5rem;
+            right: 0.8rem;
+          }
+        }
       `}</style>
     </section>
   );

@@ -1,29 +1,115 @@
+import { useEffect, useRef, useState } from "react";
+
+/* ── CountUp ── */
+function CountUp({ end, suffix = "", prefix = "", decimals = 0, duration = 2 }) {
+  const [value, setValue] = useState(0);
+  const ref = useRef(null);
+  const animated = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !animated.current) {
+          animated.current = true;
+          if (prefersReduced) {
+            setValue(end);
+            return;
+          }
+          const start = performance.now();
+          const tick = (now) => {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / (duration * 1000), 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            setValue(eased * end);
+            if (progress < 1) requestAnimationFrame(tick);
+            else setValue(end);
+          };
+          requestAnimationFrame(tick);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [end, duration]);
+
+  return (
+    <span ref={ref}>
+      {prefix}
+      {value.toFixed(decimals)}
+      {suffix}
+    </span>
+  );
+}
+
+/* ── Data ── */
 const BENEFITS = [
-  { num: "20–40%", title: "Reduction in Electricity Cost", desc: "Industries on our PPA model see 20–40% savings from day one.", wide: true },
-  { num: "Zero", title: "Capital Expenditure", desc: "Lumera fully funds, builds, and operates the solar plant." },
-  { num: "100%", title: "Tariff Protection", desc: "Fixed long-term rate shields you from market volatility." },
-  { num: "∞", title: "Reliable Renewable Supply", desc: "Consistent clean solar energy for your operations." },
-  { num: "25+", title: "Years Price Visibility", desc: "Long-term energy price predictability for your business." },
+  {
+    value: 40,
+    prefix: "20–",
+    suffix: "%",
+    title: "Reduction in Electricity Cost",
+    desc: "Industries on our PPA model typically see immediate savings versus grid tariff — starting from month one of supply.",
+  },
+  {
+    label: "₹0",
+    title: "Capital Investment Required",
+    desc: "Lumera fully funds, builds, and operates the solar plant. Your business invests nothing upfront.",
+  },
+  {
+    value: 25,
+    suffix: "+",
+    title: "Years of Price Visibility",
+    desc: "Long-term tariff lock through our PPA gives you energy pricing certainty for planning and budgeting.",
+  },
+  {
+    label: "Day 1",
+    title: "Savings Begin Immediately",
+    desc: "No ramp-up period, no waiting. Cost reduction starts from the very first month of solar supply.",
+  },
 ];
 
 export default function Benefits() {
   return (
     <section id="benefits" className="section ben-section">
-      <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
-
-        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
-          <div className="eyebrow" style={{ color: "var(--text-light)" }}>Why Choose Lumera</div>
-          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95 }}>
-            Real, Measurable <span className="grad-text">Benefits</span>
+      <div className="ben-container">
+        {/* ── Header ── */}
+        <div className="ben-header reveal-up">
+          <div className="eyebrow" style={{ color: "var(--text-light)" }}>
+            Why Choose Lumera
+          </div>
+          <h2 className="ben-heading">
+            Real, measurable <span className="grad-text">impact</span>.
           </h2>
         </div>
 
-        <div className="ben-grid">
+        {/* ── Stat Rows ── */}
+        <div className="ben-rows stagger-children">
           {BENEFITS.map((b, i) => (
-            <div key={i} className={`ben-card ${b.wide ? "ben-card-wide" : ""}`}>
-              <div className="ben-card-num">{b.num}</div>
-              <h3 className="ben-card-title">{b.title}</h3>
-              <p className="ben-card-desc">{b.desc}</p>
+            <div key={i} className="ben-row">
+              <div className="ben-row-num">
+                {b.label ? (
+                  b.label
+                ) : (
+                  <CountUp
+                    end={b.value}
+                    prefix={b.prefix || ""}
+                    suffix={b.suffix || ""}
+                    decimals={b.decimals || 0}
+                  />
+                )}
+              </div>
+              <div className="ben-row-content">
+                <h3 className="ben-row-title">{b.title}</h3>
+                <p className="ben-row-desc">{b.desc}</p>
+              </div>
             </div>
           ))}
         </div>
@@ -31,145 +117,87 @@ export default function Benefits() {
 
       <style>{`
         .ben-section {
-          background:
-            radial-gradient(1200px 600px at 8% -18%, rgba(255, 255, 255, 0.95) 0%, transparent 62%),
-            radial-gradient(900px 460px at 96% -8%, rgba(249, 115, 22, 0.15) 0%, transparent 62%),
-            linear-gradient(180deg, #f5f5f8 0%, #eff0f4 100%);
+          background: var(--bg-warm);
         }
-
-        .ben-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 1.35rem;
-          align-items: stretch;
-          perspective: 1200px;
+        .ben-container {
+          max-width: 960px;
+          margin: 0 auto;
         }
-
-        .ben-card {
-          position: relative;
-          isolation: isolate;
-          overflow: hidden;
-          border-radius: 26px;
-          min-height: 188px;
-          padding: 2.2rem;
-          background:
-            linear-gradient(140deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.5) 100%),
-            linear-gradient(120deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 52%);
-          backdrop-filter: blur(26px) saturate(185%);
-          -webkit-backdrop-filter: blur(26px) saturate(185%);
-          border: 1px solid rgba(255, 255, 255, 0.9);
-          box-shadow:
-            0 20px 44px rgba(17, 17, 17, 0.08),
-            0 3px 8px rgba(17, 17, 17, 0.04),
-            inset 0 1px 0 rgba(255, 255, 255, 0.98),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.48);
-          transition:
-            transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-            box-shadow 0.35s ease,
-            border-color 0.35s ease;
-          transform-style: preserve-3d;
-          cursor: default;
+        .ben-header {
+          margin-bottom: 2.5rem;
         }
-        .ben-card > * {
-          position: relative;
-          z-index: 2;
-        }
-        .ben-card::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          right: 0;
-          height: 54%;
-          border-radius: 24px 24px 0 0;
-          background: linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.86) 0%,
-            rgba(255, 255, 255, 0.34) 52%,
-            transparent 100%
-          );
-          pointer-events: none;
-        }
-        .ben-card::after {
-          content: "";
-          position: absolute;
-          width: 200px;
-          height: 200px;
-          right: -76px;
-          bottom: -108px;
-          border-radius: 50%;
-          background: radial-gradient(circle, rgba(249, 115, 22, 0.2) 0%, rgba(249, 115, 22, 0) 72%);
-          pointer-events: none;
-          z-index: 1;
-        }
-        .ben-card:nth-child(2n)::after {
-          right: auto;
-          left: -82px;
-          bottom: -118px;
-          background: radial-gradient(circle, rgba(251, 146, 60, 0.16) 0%, rgba(251, 146, 60, 0) 70%);
-        }
-        .ben-card:hover {
-          transform: translateY(-8px) scale(1.01);
-          border-color: rgba(255, 255, 255, 0.98);
-          box-shadow:
-            0 30px 60px rgba(17, 17, 17, 0.13),
-            0 8px 20px rgba(17, 17, 17, 0.06),
-            inset 0 1px 0 rgba(255, 255, 255, 1),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.52);
-        }
-
-        .ben-card-wide { grid-column: span 2; }
-
-        .ben-card-num {
-          font-family: var(--font-display);
-          font-size: clamp(2rem, 4vw, 3rem);
-          font-weight: 900;
-          color: var(--orange);
-          margin-bottom: 0.55rem;
-          text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+        .ben-heading {
+          font-size: clamp(2rem, 4.2vw, 3rem);
+          line-height: 1.1;
           letter-spacing: -0.03em;
         }
-        .ben-card-title {
+
+        /* ── Rows ── */
+        .ben-rows {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .ben-row {
+          display: grid;
+          grid-template-columns: 220px 1fr;
+          gap: 3rem;
+          align-items: baseline;
+          padding: 1.6rem 0;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+          transition: transform 0.3s ease;
+        }
+        .ben-row:first-child {
+          border-top: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .ben-row:hover {
+          transform: translateX(6px);
+        }
+
+        /* ── Number ── */
+        .ben-row-num {
+          font-family: var(--font-display);
+          font-size: clamp(2.2rem, 4vw, 2.8rem);
+          font-weight: 900;
+          color: var(--orange);
+          line-height: 1;
+          letter-spacing: -0.04em;
+          white-space: nowrap;
+        }
+
+        /* ── Content ── */
+        .ben-row-title {
+          font-size: 1.15rem;
           font-weight: 700;
-          font-size: 1.02rem;
-          margin-bottom: 0.45rem;
           line-height: 1.3;
+          margin-bottom: 0.45rem;
           color: var(--text-primary);
+          letter-spacing: -0.01em;
         }
-        .ben-card-desc {
-          font-size: 0.9rem;
-          color: rgba(17, 17, 17, 0.58);
-          line-height: 1.65;
+        .ben-row-desc {
+          font-size: 0.92rem;
+          color: var(--text-muted);
+          line-height: 1.75;
+          max-width: 540px;
         }
 
+        /* ── Responsive ── */
         @media (prefers-reduced-motion: reduce) {
-          .ben-card {
-            transition: none;
-          }
-          .ben-card:hover {
-            transform: none;
-          }
-        }
-
-        @media (max-width: 900px) {
-          .ben-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .ben-card-wide { grid-column: span 2 !important; }
+          .ben-row { transition: none; }
+          .ben-row:hover { transform: none; }
         }
         @media (max-width: 700px) {
-          .ben-card {
-            padding: 1.7rem;
-            border-radius: 22px;
+          .ben-row {
+            grid-template-columns: 1fr;
+            gap: 0.6rem;
+            padding: 2rem 0;
           }
-          .ben-card-num {
-            font-size: clamp(1.8rem, 7vw, 2.45rem);
+          .ben-row-num {
+            font-size: clamp(2.2rem, 10vw, 3rem);
           }
-          .ben-card-desc {
-            font-size: 0.84rem;
+          .ben-row:hover {
+            transform: translateX(0);
           }
-        }
-        @media (max-width: 480px) {
-          .ben-grid { grid-template-columns: 1fr !important; }
-          .ben-card-wide { grid-column: span 1 !important; }
         }
       `}</style>
     </section>

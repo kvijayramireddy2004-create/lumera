@@ -168,36 +168,37 @@ export default function Hero() {
         .hero-metrics-shell {
           position: relative;
           z-index: 2;
-          padding: clamp(0.9rem, 2vw, 1.4rem) var(--section-x) clamp(1.2rem, 2.5vw, 1.8rem);
-          background: linear-gradient(180deg, rgba(8,12,20,0.28) 0%, rgba(7,10,18,0.85) 48%, rgba(7,10,18,0.96) 100%);
-          backdrop-filter: blur(4px);
+          padding: clamp(2rem, 3vw, 3rem) var(--section-x) clamp(1.4rem, 2.5vw, 2rem);
+          background: linear-gradient(180deg, transparent 0%, rgba(7,10,18,0.7) 40%, rgba(7,10,18,1) 100%);
         }
         .hero-metrics-grid {
           max-width: 1080px;
           margin: 0 auto;
           display: grid;
           grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: clamp(2rem, 4vw, 3.6rem);
+          gap: clamp(1.2rem, 3vw, 2rem);
         }
         .hero-metric {
           position: relative;
           display: flex;
           flex-direction: column;
           justify-content: center;
-          gap: 0.38rem;
+          gap: 0.45rem;
           min-height: clamp(112px, 12vw, 136px);
-          padding: clamp(0.72rem, 1.2vw, 0.95rem);
-          border-radius: 14px;
-          background: linear-gradient(160deg, rgba(18,24,38,0.8) 0%, rgba(8,12,20,0.93) 100%);
+          padding: clamp(1.2rem, 2vw, 1.6rem);
+          border-radius: 16px;
+          background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%);
+          border: 1px solid rgba(255,255,255,0.08);
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.13),
-            0 12px 24px rgba(0,0,0,0.28);
-          transition: box-shadow 0.24s ease;
+            inset 0 1px 0 rgba(255,255,255,0.06),
+            0 8px 24px rgba(0,0,0,0.2);
+          transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
         .hero-metric:hover {
+          border-color: rgba(255,255,255,0.15);
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.16),
-            0 16px 28px rgba(0,0,0,0.33);
+            inset 0 1px 0 rgba(255,255,255,0.08),
+            0 16px 32px rgba(0,0,0,0.28);
         }
         .hero-metric-value {
           font-size: clamp(1.65rem, 2.2vw, 2.1rem);
