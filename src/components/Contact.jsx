@@ -1,45 +1,9 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import emailjs from "@emailjs/browser";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EMAILJS_SERVICE_ID = "service_g406wwv";
 const EMAILJS_TEMPLATE_ID = "template_dk7rrkf";
 const EMAILJS_PUBLIC_KEY = "OX29iNzgTyt3wL_Sh";
-
-const CONTACT_ITEMS = [
-  {
-    icon: "📞",
-    label: "Phone",
-    render: () => (
-      <>
-        <a href="tel:+919550800865" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>+91 9550800865</a>
-        <br />
-        <a href="tel:+919494929955" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>+91 9494929955</a>
-      </>
-    ),
-  },
-  {
-    icon: "✉️",
-    label: "Email",
-    render: () => (
-      <a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
-        harshavardhanravana@lumeraenergy.in
-      </a>
-    ),
-  },
-  {
-    icon: "🌐",
-    label: "Website",
-    render: () => (
-      <a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
-        lumeraenergy.in <span className="sr-only">(opens in new tab)</span>
-      </a>
-    ),
-  },
-];
 
 const CONSUMPTION_OPTIONS = [
   "Below 50,000 kWh / month",
@@ -48,431 +12,134 @@ const CONSUMPTION_OPTIONS = [
   "Above 5,00,000 kWh / month",
 ];
 
-function FormField({ label, htmlFor, children }) {
+function Field({ label, htmlFor, children }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.38rem" }}>
-      <label
-        htmlFor={htmlFor}
-        style={{
-          fontSize: "0.72rem",
-          fontWeight: 700,
-          color: "#B0BEC5",
-          letterSpacing: "0.08em",
-          textTransform: "uppercase",
-        }}
-      >
-        {label}
-      </label>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+      <label htmlFor={htmlFor} style={{
+        fontSize: "0.7rem", fontWeight: 600, color: "var(--text-muted)",
+        letterSpacing: "0.08em", textTransform: "uppercase",
+      }}>{label}</label>
       {children}
     </div>
   );
 }
 
 export default function Contact() {
-  const sRef = useRef();
   const formRef = useRef();
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(".contact-header", {
-        scrollTrigger: { trigger: ".contact-header", start: "top 82%" },
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-      gsap.from(".contact-info", {
-        scrollTrigger: { trigger: ".contact-info", start: "top 82%" },
-        opacity: 0,
-        x: -50,
-        duration: 0.9,
-        ease: "power3.out",
-      });
-      gsap.from(".contact-form", {
-        scrollTrigger: { trigger: ".contact-form", start: "top 82%" },
-        opacity: 0,
-        x: 50,
-        duration: 0.9,
-        ease: "power3.out",
-      });
-    }, sRef);
-    return () => ctx.revert();
-  }, []);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
     setError(false);
-    emailjs
-      .sendForm(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        formRef.current,
-        EMAILJS_PUBLIC_KEY
-      )
-      .then(() => {
-        setLoading(false);
-        setSent(true);
-        formRef.current.reset();
-        setTimeout(() => setSent(false), 6000);
-      })
-      .catch(() => {
-        setLoading(false);
-        setError(true);
-        setTimeout(() => setError(false), 5000);
-      });
+    emailjs.sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, formRef.current, EMAILJS_PUBLIC_KEY)
+      .then(() => { setLoading(false); setSent(true); formRef.current.reset(); setTimeout(() => setSent(false), 6000); })
+      .catch(() => { setLoading(false); setError(true); setTimeout(() => setError(false), 5000); });
   };
 
   return (
-    <section
-      id="contact"
-      ref={sRef}
-      className="section-py"
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        background:
-          "linear-gradient(135deg, #0C1220 0%, #1E3A5F 50%, #0C2040 100%)",
-      }}
-    >
-      {/* Decorative orbs */}
-      <div
-        style={{
-          position: "absolute",
-          width: "440px",
-          height: "440px",
-          borderRadius: "50%",
-          background: "rgba(249,115,22,0.12)",
-          filter: "blur(100px)",
-          top: "-120px",
-          right: "-100px",
-          pointerEvents: "none",
-          animation: "drift 9s ease-in-out infinite alternate",
-        }}
-      />
-      <div
-        style={{
-          position: "absolute",
-          width: "320px",
-          height: "320px",
-          borderRadius: "50%",
-          background: "rgba(245,158,11,0.1)",
-          filter: "blur(90px)",
-          bottom: "-80px",
-          left: "-80px",
-          pointerEvents: "none",
-          animation: "drift 11s ease-in-out infinite alternate-reverse",
-        }}
-      />
+    <section id="contact" className="section" style={{ background: "var(--bg-light)" }}>
+      <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
 
-      <style>{`
-        @keyframes drift { to { transform: translate(30px, 30px); } }
-      `}</style>
-
-      <div
-        style={{
-          maxWidth: "1060px",
-          margin: "0 auto",
-          position: "relative",
-          zIndex: 1,
-        }}
-      >
-        {/* Header */}
-        <div
-          className="contact-header"
-          style={{ textAlign: "center", marginBottom: "4.5rem" }}
-        >
-          <div
-            className="sec-label"
-            style={{ justifyContent: "center", color: "#F59E0B" }}
-          >
-            <span style={{ background: "#F59E0B" }} />
-            Get In Touch
-          </div>
-          <h2
-            style={{
-              fontFamily: "'Barlow Condensed',sans-serif",
-              fontSize: "clamp(2.4rem,4.5vw,3.6rem)",
-              fontWeight: 900,
-              textTransform: "uppercase",
-              lineHeight: 0.95,
-              color: "#fff",
-              marginBottom: "1rem",
-            }}
-          >
-            Let's Build A{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg,#F97316,#FCD34D)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              Smarter Energy
-            </span>
-            <br />
-            Future Together
+        <div style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "550px", margin: "0 auto 4rem" }}>
+          <div className="eyebrow">Partner With Us</div>
+          <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.4rem)", lineHeight: 0.95, marginBottom: "1rem" }}>
+            Let's Build A <span className="grad-text">Smarter Energy</span> Future
           </h2>
-          <p
-            style={{
-              color: "rgba(255,255,255,0.75)",
-              fontSize: "0.95rem",
-              maxWidth: "480px",
-              margin: "0 auto",
-              lineHeight: 1.75,
-            }}
-          >
-            Get a free energy audit and discover exactly how much your industry
-            can save with Lumera.
+          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+            Get a free energy audit and discover exactly how much your industry can save with Lumera.
           </p>
         </div>
 
-        {/* Grid */}
-        <div
-          className="contact-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1.6fr",
-            gap: "4rem",
-            alignItems: "start",
-          }}
-        >
-          {/* Contact info */}
-          <div className="contact-info">
-            <h3
-              style={{
-                fontSize: "1rem",
-                fontWeight: 700,
-                color: "#fff",
-                marginBottom: "1.8rem",
-              }}
-            >
-              Reach Us Directly
-            </h3>
-            {CONTACT_ITEMS.map(({ icon, label, render }) => (
-              <div
-                key={label}
-                style={{
-                  display: "flex",
-                  alignItems: "flex-start",
-                  gap: "1rem",
-                  marginBottom: "1.3rem",
-                }}
-              >
-                <div
-                  style={{
-                    width: "42px",
-                    height: "42px",
-                    borderRadius: "10px",
-                    flexShrink: 0,
-                    background: "rgba(249,115,22,0.12)",
-                    border: "1px solid rgba(249,115,22,0.25)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: "1rem",
-                  }}
-                >
-                  <span aria-hidden="true">{icon}</span>
-                </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.6fr", gap: "4rem", alignItems: "start" }} className="contact-grid">
+
+          {/* Info */}
+          <div>
+            <h3 style={{
+              fontFamily: "var(--font-display)", fontSize: "1.1rem",
+              fontWeight: 700, textTransform: "uppercase", marginBottom: "2rem", lineHeight: 1.3,
+            }}>Reach Us Directly</h3>
+
+            {[
+              { icon: "📞", label: "Phone", content: (<><a href="tel:+919550800865" style={{ color: "var(--text-primary)", textDecoration: "none" }}>+91 9550800865</a><br /><a href="tel:+919494929955" style={{ color: "var(--text-primary)", textDecoration: "none" }}>+91 9494929955</a></>) },
+              { icon: "✉️", label: "Email", content: (<a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "var(--text-primary)", textDecoration: "none" }}>harshavardhanravana@lumeraenergy.in</a>) },
+              { icon: "🌐", label: "Website", content: (<a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none" }}>lumeraenergy.in <span className="sr-only">(opens in new tab)</span></a>) },
+            ].map(({ icon, label, content }) => (
+              <div key={label} style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem", alignItems: "flex-start" }}>
+                <div style={{
+                  width: "40px", height: "40px", borderRadius: "10px", flexShrink: 0,
+                  background: "var(--bg-white)", border: "1px solid var(--border-light)",
+                  display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem",
+                }}><span aria-hidden="true">{icon}</span></div>
                 <div>
-                  <div
-                    style={{
-                      fontSize: "0.75rem",
-                      fontWeight: 700,
-                      color: "rgba(255,255,255,0.65)",
-                      letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      marginBottom: "0.2rem",
-                    }}
-                  >
-                    {label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "0.88rem",
-                      color: "rgba(255,255,255,0.85)",
-                      lineHeight: 1.6,
-                      whiteSpace: "pre-line",
-                    }}
-                  >
-                    {render()}
-                  </div>
+                  <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.2rem" }}>{label}</div>
+                  <div style={{ fontSize: "0.88rem", lineHeight: 1.6 }}>{content}</div>
                 </div>
               </div>
             ))}
 
-            {/* Free audit badge */}
-            <div
-              style={{
-                marginTop: "2.2rem",
-                padding: "1.4rem",
-                borderRadius: "14px",
-                background: "rgba(249,115,22,0.09)",
-                border: "1px solid rgba(249,115,22,0.22)",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "0.7rem",
-                  fontWeight: 700,
-                  color: "#FCD34D",
-                  letterSpacing: "0.13em",
-                  textTransform: "uppercase",
-                  marginBottom: "0.5rem",
-                }}
-              >
-                Free Energy Audit
-              </div>
-              <div
-                style={{
-                  fontSize: "0.84rem",
-                  color: "rgba(255,255,255,0.75)",
-                  lineHeight: 1.7,
-                }}
-              >
-                We'll analyze your electricity bills and show you exactly how
-                much you can save — completely free, zero commitment required.
-              </div>
+            <div style={{
+              marginTop: "2rem", padding: "1.4rem", borderRadius: "14px",
+              background: "var(--bg-white)", border: "1px solid var(--border-light)",
+            }}>
+              <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--orange)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Free Energy Audit</div>
+              <p style={{ fontSize: "0.84rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
+                We'll analyze your electricity bills and show you exactly how much you can save — completely free, zero commitment.
+              </p>
             </div>
           </div>
 
           {/* Form */}
-          <form
-            ref={formRef}
-            className="contact-form"
-            onSubmit={handleSubmit}
-            style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
-          >
-            <div
-              className="form-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1rem",
-              }}
-            >
-              <FormField label="Company Name *" htmlFor="company">
-                <input
-                  id="company"
-                  className="form-input"
-                  type="text"
-                  name="company"
-                  placeholder="Your company name"
-                  required
-                />
-              </FormField>
-              <FormField label="Contact Person *" htmlFor="name">
-                <input
-                  id="name"
-                  className="form-input"
-                  type="text"
-                  name="name"
-                  placeholder="Your full name"
-                  required
-                />
-              </FormField>
+          <form ref={formRef} onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row">
+              <Field label="Company Name *" htmlFor="company">
+                <input id="company" className="form-input" type="text" name="company" placeholder="Your company name" required />
+              </Field>
+              <Field label="Contact Person *" htmlFor="name">
+                <input id="name" className="form-input" type="text" name="name" placeholder="Your full name" required />
+              </Field>
             </div>
-            <div
-              className="form-row"
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: "1rem",
-              }}
-            >
-              <FormField label="Email Address *" htmlFor="email">
-                <input
-                  id="email"
-                  className="form-input"
-                  type="email"
-                  name="email"
-                  placeholder="email@company.com"
-                  required
-                />
-              </FormField>
-              <FormField label="Phone Number *" htmlFor="phone">
-                <input
-                  id="phone"
-                  className="form-input"
-                  type="tel"
-                  name="phone"
-                  placeholder="+91 XXXXX XXXXX"
-                  required
-                />
-              </FormField>
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="form-row">
+              <Field label="Email Address *" htmlFor="email">
+                <input id="email" className="form-input" type="email" name="email" placeholder="email@company.com" required />
+              </Field>
+              <Field label="Phone Number *" htmlFor="phone">
+                <input id="phone" className="form-input" type="tel" name="phone" placeholder="+91 XXXXX XXXXX" required />
+              </Field>
             </div>
-            <FormField label="Monthly Electricity Consumption" htmlFor="consumption">
-              <select
-                id="consumption"
-                className="form-input"
-                name="consumption"
-                defaultValue=""
-                style={{ background: "#fff" }}
-              >
+            <Field label="Monthly Electricity Consumption" htmlFor="consumption">
+              <select id="consumption" className="form-input" name="consumption" defaultValue="">
                 <option value="" disabled>Select range — helps us prepare your audit</option>
-                {CONSUMPTION_OPTIONS.map((o) => (
-                  <option key={o} value={o}>{o}</option>
-                ))}
+                {CONSUMPTION_OPTIONS.map((o) => (<option key={o} value={o}>{o}</option>))}
               </select>
-            </FormField>
-            <FormField label="Message" htmlFor="message">
-              <textarea
-                id="message"
-                className="form-input"
-                name="message"
-                rows={4}
-                placeholder="Tell us about your energy needs or ask anything…"
-                style={{ resize: "vertical" }}
-              />
-            </FormField>
+            </Field>
+            <Field label="Message" htmlFor="message">
+              <textarea id="message" className="form-input" name="message" rows={4} placeholder="Tell us about your energy needs…" style={{ resize: "vertical" }} />
+            </Field>
             <button
-              type="submit"
-              disabled={loading}
-              aria-busy={loading}
-              className="btn-primary"
+              type="submit" disabled={loading} aria-busy={loading}
+              className="btn btn--primary"
               style={{
-                width: "100%",
-                justifyContent: "center",
-                padding: "1rem",
-                fontSize: "1rem",
-                letterSpacing: "0.02em",
-                background: sent
-                  ? "linear-gradient(135deg,#22C55E,#16A34A)"
-                  : error
-                  ? "linear-gradient(135deg,#EF4444,#DC2626)"
-                  : "linear-gradient(135deg,#F97316,#EA580C)",
-                boxShadow: sent
-                  ? "0 8px 32px rgba(34,197,94,0.4)"
-                  : error
-                  ? "0 4px 22px rgba(239,68,68,0.4)"
-                  : "0 4px 22px rgba(249,115,22,0.35)",
+                width: "100%", justifyContent: "center", padding: "1rem",
+                fontSize: "0.95rem",
+                background: sent ? "#22c55e" : error ? "#ef4444" : undefined,
               }}
             >
-              {loading
-                ? "Sending…"
-                : sent
-                ? "✓ Sent! We'll contact you within 24 hours."
-                : error
-                ? "✗ Failed to send. Please try again."
-                : "Send Enquiry →"}
+              {loading ? "Sending…" : sent ? "✓ Sent! We'll contact you within 24 hours." : error ? "✗ Failed. Please try again." : "Send Enquiry →"}
             </button>
             <div aria-live="polite" className="sr-only">
-              {loading
-                ? "Sending your enquiry..."
-                : sent
-                ? "Enquiry sent successfully. We will contact you within 24 hours."
-                : error
-                ? "Failed to send enquiry. Please try again."
-                : ""}
+              {loading ? "Sending your enquiry..." : sent ? "Enquiry sent successfully." : error ? "Failed to send. Please try again." : ""}
             </div>
           </form>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr !important; gap: 2.5rem !important; } }
+        @media (max-width: 600px) { .form-row { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   );
 }

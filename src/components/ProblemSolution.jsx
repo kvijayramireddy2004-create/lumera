@@ -1,9 +1,3 @@
-import { useRef, useEffect, useState } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
-
 const PROBLEMS = [
   "High base energy tariff from grid utilities",
   "Fuel & Power Purchase Cost Adjustment (FPPCA)",
@@ -12,257 +6,84 @@ const PROBLEMS = [
 ];
 
 const SOLUTIONS = [
-  {
-    icon: "🎁",
-    title: "Zero Upfront Cost",
-    desc: "No capital expenditure. We invest, build, and own the solar plant. You pay only for power consumed.",
-  },
-  {
-    icon: "📉",
-    title: "Lower Electricity Cost",
-    desc: "Save 20–40% vs your current grid tariff starting from day one of supply.",
-  },
-  {
-    icon: "🛡️",
-    title: "Predictable Long-Term Tariff",
-    desc: "Fixed locked-in rate protects your margins from market and policy volatility.",
-  },
-  {
-    icon: "🌿",
-    title: "Clean Renewable Supply",
-    desc: "100% solar power. Strengthen your ESG credentials and sustainability goals.",
-  },
+  { title: "Zero Upfront Cost", desc: "No capital expenditure. We invest, build, and own the solar plant. You pay only for power consumed." },
+  { title: "Lower Electricity Cost", desc: "Save 20–40% vs your current grid tariff starting from day one of supply." },
+  { title: "Predictable Tariff", desc: "Fixed locked-in rate protects your margins from market and policy volatility." },
+  { title: "Clean Renewable Supply", desc: "100% solar power. Strengthen your ESG credentials and sustainability goals." },
 ];
 
-function SolCard({ icon, title, desc }) {
-  const [hov, setHov] = useState(false);
-
-  return (
-    <div
-      className="sol-card"
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        background: hov ? "#FFFBEB" : "#fff",
-        border: `1px solid ${hov ? "#F97316" : "#FED7AA"}`,
-        borderRadius: "16px",
-        padding: "1.8rem",
-        transition: "all 0.3s ease",
-        transform: hov ? "translateY(-5px)" : "translateY(0)",
-        boxShadow: hov
-          ? "0 16px 48px rgba(249,115,22,0.14)"
-          : "0 2px 12px rgba(0,0,0,0.05)",
-        cursor: "default",
-      }}
-    >
-      <div
-        aria-hidden="true"
-        style={{
-          width: "48px",
-          height: "48px",
-          borderRadius: "13px",
-          background: "linear-gradient(135deg,#F97316,#EA580C)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          fontSize: "1.4rem",
-          marginBottom: "1rem",
-        }}
-      >
-        {icon}
-      </div>
-
-      <h3
-        style={{
-          fontFamily: "'Barlow Condensed',sans-serif",
-          fontSize: "1.05rem",
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.04em",
-          color: "#0C1220",
-          marginBottom: "0.4rem",
-          lineHeight: 1.3,
-        }}
-      >
-        {title}
-      </h3>
-
-      <div style={{ fontSize: "0.83rem", color: "#64748B", lineHeight: 1.65 }}>
-        {desc}
-      </div>
-    </div>
-  );
-}
-
 export default function ProblemSolution() {
-  const sRef = useRef();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Header animation
-      gsap.from(".ps-header", {
-        scrollTrigger: {
-          trigger: ".ps-header",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        opacity: 0,
-        y: 40,
-        duration: 0.8,
-        ease: "power3.out",
-      });
-
-      // Problem card animation
-      gsap.from(".prob-card", {
-        scrollTrigger: {
-          trigger: ".prob-card",
-          start: "top 85%",
-          toggleActions: "play none none reverse",
-        },
-        opacity: 0,
-        x: -55,
-        duration: 0.9,
-        ease: "power3.out",
-      });
-
-      // ✅ FIXED: Each solution card gets its own trigger
-      gsap.utils.toArray(".sol-card").forEach((card) => {
-        gsap.from(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-          opacity: 0,
-          y: 40,
-          duration: 0.7,
-          ease: "power3.out",
-        });
-      });
-    }, sRef);
-
-    // Refresh ScrollTrigger after mount
-    setTimeout(() => {
-      ScrollTrigger.refresh();
-    }, 100);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section
-      id="solution"
-      ref={sRef}
-      className="section-py"
-      style={{
-        background: "#FFF7ED",
-        minHeight: "100vh",
-        position: "relative",
-        zIndex: 1,
-      }}
-    >
-      <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-        {/* Header */}
-        <div
-          className="ps-header"
-          style={{ textAlign: "center", marginBottom: "4.5rem" }}
-        >
-          <div className="sec-label" style={{ justifyContent: "center" }}>
-            The Challenge &amp; Our Answer
-          </div>
+    <section id="solution" className="section" style={{ background: "var(--bg-light)" }}>
+      <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
 
-          <h2
-            style={{
-              fontFamily: "'Barlow Condensed',sans-serif",
-              fontSize: "clamp(2.4rem,4.5vw,3.6rem)",
-              fontWeight: 900,
-              textTransform: "uppercase",
-              lineHeight: 0.95,
-            }}
-          >
+        {/* Header */}
+        <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "650px", margin: "0 auto 5rem" }}>
+          <div className="eyebrow">The Challenge &amp; Our Answer</div>
+          <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.4rem)", lineHeight: 0.95 }}>
             Why Bills Keep Rising —{" "}
             <span className="grad-text">And Our Fix</span>
           </h2>
         </div>
 
-        {/* Grid */}
-        <div
-          className="ps-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "2.5rem",
-          }}
-        >
-          {/* Problem Card */}
-          <div
-            className="prob-card"
-            style={{
-              background: "#fff",
-              borderRadius: "20px",
-              padding: "2.5rem",
-              boxShadow: "0 4px 28px rgba(0,0,0,0.07)",
-              border: "1px solid #FED7AA",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "0.75rem",
-                marginBottom: "1.6rem",
-              }}
-            >
-              <span aria-hidden="true" style={{ fontSize: "1.5rem" }}>⚡</span>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "3rem" }} className="ps-grid">
 
-              <h3
-                style={{
-                  fontFamily: "'Barlow Condensed',sans-serif",
-                  fontSize: "1.4rem",
-                  fontWeight: 700,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.04em",
-                  lineHeight: 1.3,
-                }}
-              >
-                Why Your Bills Keep Rising
-              </h3>
-            </div>
+          {/* Problem Card */}
+          <div style={{
+            background: "var(--bg-white)", borderRadius: "20px",
+            padding: "2.5rem", border: "1px solid var(--border-light)",
+          }}>
+            <h3 style={{
+              fontFamily: "var(--font-display)", fontSize: "1.3rem",
+              fontWeight: 700, textTransform: "uppercase", marginBottom: "1.8rem",
+              display: "flex", alignItems: "center", gap: "0.75rem", lineHeight: 1.3,
+            }}>
+              <span aria-hidden="true" style={{ fontSize: "1.3rem" }}>⚡</span>
+              Why Your Bills Keep Rising
+            </h3>
 
             <ul style={{ listStyle: "none" }}>
               {PROBLEMS.map((p, i) => (
-                <li
-                  key={i}
-                  style={{
-                    display: "flex",
-                    gap: "0.75rem",
-                    padding: "0.72rem 0",
-                    borderBottom:
-                      i < PROBLEMS.length - 1 ? "1px solid #FEF3E2" : "none",
-                  }}
-                >
-                  <span aria-hidden="true" style={{ color: "#EF4444", fontWeight: 700 }}>↑</span>
+                <li key={i} style={{
+                  display: "flex", gap: "0.75rem", alignItems: "flex-start",
+                  padding: "0.8rem 0",
+                  borderBottom: i < PROBLEMS.length - 1 ? "1px solid var(--border-light)" : "none",
+                  fontSize: "0.9rem", color: "var(--text-secondary)",
+                }}>
+                  <span aria-hidden="true" style={{ color: "#ef4444", fontWeight: 700, flexShrink: 0 }}>↑</span>
                   <span>Rising cost: {p}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Solutions */}
-          <div
-            className="sol-grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "1.15rem",
-            }}
-          >
+          {/* Solutions Grid */}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }} className="sol-grid">
             {SOLUTIONS.map((s, i) => (
-              <SolCard key={i} {...s} />
+              <div key={i} style={{
+                background: "var(--bg-white)", borderRadius: "16px",
+                padding: "1.8rem", border: "1px solid var(--border-light)",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+              }}
+                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-3px)"; e.currentTarget.style.boxShadow = "0 12px 40px rgba(0,0,0,0.08)"; }}
+                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
+              >
+                <h3 style={{
+                  fontFamily: "var(--font-display)", fontSize: "0.95rem",
+                  fontWeight: 700, textTransform: "uppercase",
+                  letterSpacing: "0.03em", marginBottom: "0.6rem", lineHeight: 1.3,
+                }}>{s.title}</h3>
+                <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.65 }}>{s.desc}</p>
+              </div>
             ))}
           </div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) { .ps-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 480px) { .sol-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   );
 }

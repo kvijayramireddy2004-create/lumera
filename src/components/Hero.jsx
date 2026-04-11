@@ -1,206 +1,109 @@
-import { useRef, useEffect } from "react";
 import heroImg from "../assets/solar-hero.png";
-import gsap from "gsap";
 
 export default function Hero() {
-  const ref = useRef();
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap
-        .timeline({ defaults: { ease: "power3.out" } })
-        .from(".hero-badge", { opacity: 0, y: 20 })
-        .from(".hero-title", { opacity: 0, y: 60 }, "-=0.3")
-        .from(".hero-sub", { opacity: 0, y: 25 }, "-=0.4")
-        .from(".hero-btn", { opacity: 0, y: 20, stagger: 0.12 }, "-=0.4")
-        .from(".hero-stat", { opacity: 0, y: 15, stagger: 0.1 }, "-=0.3");
-    }, ref);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
     <section
       id="home"
       style={{
         position: "relative",
         minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-end",
         overflow: "hidden",
-        background: "#0A0E16",
+        background: "#0a0e16",
       }}
     >
       <div
         role="img"
         aria-label="Solar panels powering industrial facilities at sunrise"
         style={{
-          position: "absolute",
-          inset: 0,
+          position: "absolute", inset: 0,
           backgroundImage: `url(${heroImg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          zIndex: 0,
+          backgroundSize: "cover", backgroundPosition: "center",
         }}
       />
+      <div aria-hidden="true" style={{
+        position: "absolute", inset: 0,
+        background: "linear-gradient(to top, rgba(10,14,22,0.95) 0%, rgba(10,14,22,0.5) 40%, rgba(10,14,22,0.2) 100%)",
+      }} />
 
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          background: `
-  linear-gradient(
-    115deg,
-    rgba(8,12,20,0.75) 0%,
-    rgba(10,15,25,0.55) 30%,
-    rgba(10,15,25,0.25) 55%,
-    rgba(10,15,25,0.08) 75%,
-    rgba(10,15,25,0) 100%
-  )
-`,
-        }}
-      />
-
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          right: "15%",
-          top: "20%",
-          width: "400px",
-          height: "400px",
-          background:
-            "radial-gradient(circle, rgba(255,200,120,0.35), transparent 70%)",
-          filter: "blur(40px)",
-          zIndex: 1,
-        }}
-      />
-
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          bottom: 0,
-          height: "240px",
-          width: "100%",
-          background: "linear-gradient(to bottom, transparent, #0A0E16)",
-          zIndex: 1,
-        }}
-      />
-
-      {/* CONTENT */}
-      <div
-        ref={ref}
-        className="hero-content"
-        style={{
-          position: "relative",
-          zIndex: 2,
-          padding: "5rem",
-          maxWidth: "720px",
-          paddingTop: "10rem",
-        }}
-      >
-        {/* Badge */}
-        <div
-          className="hero-badge"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            background: "rgba(249,115,22,0.12)",
-            border: "1px solid rgba(249,115,22,0.35)",
-            color: "#FCD34D",
-            padding: "0.4rem 1rem",
-            borderRadius: "999px",
-            fontSize: "0.72rem",
-            fontWeight: 700,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            marginBottom: "1.5rem",
-          }}
-        >
-          ● INDIA'S INDUSTRIAL SOLAR PARTNER
+      <div style={{
+        position: "relative", zIndex: 2,
+        padding: "0 var(--section-x) 6rem",
+        maxWidth: "900px",
+      }}>
+        <div className="eyebrow eyebrow--light" style={{ marginBottom: "2rem" }}>
+          India's Industrial Solar Partner
         </div>
 
-        {/* Title */}
-        <h1
-          className="hero-title"
-          style={{
-            fontFamily: "'Barlow Condensed', sans-serif",
-            fontSize: "clamp(3rem, 7vw, 6rem)",
-            fontWeight: 900,
-            lineHeight: 0.92,
-            textTransform: "uppercase",
-            color: "#FFFFFF",
-            marginBottom: "1.2rem",
-          }}
-        >
-          POWER YOUR <br />
-          <span
-            className="grad-text"
-          >
-            INDUSTRY
-          </span>
-          <br />
-          WITH THE SUN
+        <h1 style={{
+          fontFamily: "var(--font-display)",
+          fontSize: "clamp(3rem, 8vw, 7rem)",
+          fontWeight: 900, lineHeight: 0.9,
+          color: "#fff", marginBottom: "2rem",
+        }}>
+          Power Your{" "}
+          <span className="grad-text">Industry</span>
+          <br />With the Sun
         </h1>
 
-        {/* Subtitle */}
-        <p
-          className="hero-sub"
-          style={{
-            fontSize: "1.05rem",
-            lineHeight: 1.7,
-            color: "rgba(255,255,255,0.7)",
-            marginBottom: "2rem",
-            maxWidth: "520px",
-          }}
-        >
+        <p style={{
+          fontSize: "1.1rem", lineHeight: 1.8,
+          color: "rgba(255,255,255,0.7)",
+          maxWidth: "540px", marginBottom: "3rem",
+        }}>
           We develop, own, and operate solar power plants — delivering clean
           electricity directly to industrial consumers through long-term Power
           Purchase Agreements.
         </p>
+
+        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+          <a href="#contact" className="btn btn--primary"
+            onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
+            Get Free Energy Audit
+          </a>
+          <a href="#about" className="btn btn--outline-white"
+            onClick={(e) => { e.preventDefault(); document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); }}>
+            Learn More
+          </a>
+        </div>
       </div>
 
-      {/* Stats */}
-      <div
-        className="hero-stats"
-        style={{
-          position: "relative",
-          zIndex: 2,
-          padding: "0 5rem 4rem",
-          display: "flex",
-          gap: "3rem",
-          flexWrap: "wrap",
-        }}
-      >
+      {/* Stats strip */}
+      <div style={{
+        position: "relative", zIndex: 2,
+        borderTop: "1px solid rgba(255,255,255,0.1)",
+        display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
+      }}>
         {[
           ["20–40%", "Cost Reduction"],
           ["Zero", "Upfront Investment"],
           ["25+ yrs", "Price Visibility"],
         ].map(([val, label]) => (
-          <div key={label} className="hero-stat">
-            <div
-              className="grad-text"
-              style={{
-                fontSize: "2.2rem",
-                fontWeight: 900,
-              }}
-            >
-              {val}
-            </div>
-            <div
-              style={{
-                fontSize: "0.7rem",
-                color: "rgba(255,255,255,0.75)",
-                textTransform: "uppercase",
-              }}
-            >
-              {label}
-            </div>
+          <div key={label} style={{
+            padding: "2rem var(--section-x)",
+            borderRight: "1px solid rgba(255,255,255,0.1)",
+            textAlign: "center",
+          }}>
+            <div style={{
+              fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem,3vw,2.4rem)",
+              fontWeight: 900, color: "var(--orange)", marginBottom: "0.3rem",
+            }}>{val}</div>
+            <div style={{
+              fontSize: "0.72rem", color: "rgba(255,255,255,0.5)",
+              textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600,
+            }}>{label}</div>
           </div>
         ))}
       </div>
+
+      <style>{`
+        @media (max-width: 600px) {
+          #home > div:last-child { grid-template-columns: 1fr !important; }
+          #home > div:last-child > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        }
+      `}</style>
     </section>
   );
 }
