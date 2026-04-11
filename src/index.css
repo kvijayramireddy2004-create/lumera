@@ -138,12 +138,12 @@ p { line-height: 1.75; }
 .btn-dark:hover { color: #fff; }
 .btn-dark:hover .arrow { background: rgba(255,255,255,0.2); }
 
-/* Orange button — dark circle, fills dark on hover */
+/* Orange button — darker orange circle, fills dark on hover */
 .btn-orange {
   background: var(--orange); color: #fff;
 }
 .btn-orange::before { background: var(--bg-dark); }
-.btn-orange .arrow { background: rgba(0,0,0,0.15); color: #fff; }
+.btn-orange .arrow { background: var(--orange-dark); color: #fff; }
 .btn-orange:hover { color: #fff; }
 .btn-orange:hover .arrow { background: var(--orange); }
 
