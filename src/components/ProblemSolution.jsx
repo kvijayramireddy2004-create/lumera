@@ -186,17 +186,19 @@ export default function ProblemSolution() {
           </div>
 
           {/* ── Solutions ── */}
-          <div className="ps-solutions stagger-children">
+          <div className="ps-solutions-wrap stagger-children">
             <div className="ps-sol-badge">Our Solution</div>
-            {SOLUTIONS.map((s, i) => (
-              <div key={i} className="ps-sol-card">
-                <div className="ps-sol-icon">{s.icon}</div>
-                <div>
-                  <h3 className="ps-sol-title">{s.title}</h3>
-                  <p className="ps-sol-desc">{s.desc}</p>
+            <div className="ps-solutions">
+              {SOLUTIONS.map((s, i) => (
+                <div key={i} className="ps-sol-card">
+                  <div className="ps-sol-icon">{s.icon}</div>
+                  <div>
+                    <h3 className="ps-sol-title">{s.title}</h3>
+                    <p className="ps-sol-desc">{s.desc}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -214,7 +216,7 @@ export default function ProblemSolution() {
         .ps-header {
           text-align: center;
           max-width: 620px;
-          margin: 0 auto 5rem;
+          margin: 0 auto 4.5rem;
         }
         .ps-heading {
           font-size: clamp(2rem, 4.2vw, 3rem);
@@ -225,9 +227,9 @@ export default function ProblemSolution() {
         /* ── Grid ── */
         .ps-grid {
           display: grid;
-          grid-template-columns: 1fr auto 1fr;
-          gap: 2rem;
-          align-items: start;
+          grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+          gap: 1.7rem;
+          align-items: stretch;
         }
 
         /* ── Problem card ── */
@@ -236,6 +238,8 @@ export default function ProblemSolution() {
           border-radius: 22px;
           padding: 2.4rem;
           color: #fff;
+          border: 1px solid rgba(255,255,255,0.06);
+          box-shadow: 0 16px 40px rgba(5, 8, 18, 0.28);
         }
         .ps-problem-badge {
           display: inline-block;
@@ -307,22 +311,26 @@ export default function ProblemSolution() {
         /* ── Arrow connector ── */
         .ps-arrow-col {
           display: flex;
-          align-items: center;
+          align-items: stretch;
           justify-content: center;
-          min-width: 48px;
-          padding-top: 3rem;
+          min-width: 64px;
+          padding-top: 0.9rem;
+          align-self: stretch;
         }
         .ps-arrow-track {
           display: flex;
           flex-direction: column;
           align-items: center;
           height: 100%;
-          min-height: 280px;
+          min-height: 100%;
           position: relative;
+          padding-bottom: 0.65rem;
+          padding-top: 0.6rem;
         }
         .ps-arrow-line {
           width: 2px;
           flex: 1;
+          min-height: 180px;
           background: linear-gradient(180deg, var(--border-light) 0%, var(--orange) 100%);
           border-radius: 2px;
           transform-origin: top center;
@@ -341,6 +349,11 @@ export default function ProblemSolution() {
         }
 
         /* ── Solution cards ── */
+        .ps-solutions-wrap {
+          display: flex;
+          flex-direction: column;
+          padding-top: 0.7rem;
+        }
         .ps-solutions {
           display: flex;
           flex-direction: column;
@@ -357,7 +370,7 @@ export default function ProblemSolution() {
           border: 1px solid rgba(249, 115, 22, 0.2);
           border-radius: 100px;
           padding: 0.35rem 0.9rem;
-          margin-bottom: 0.6rem;
+          margin-bottom: 0.85rem;
           align-self: flex-start;
         }
         .ps-sol-card {
@@ -368,6 +381,7 @@ export default function ProblemSolution() {
           border-radius: 16px;
           border: 1px solid var(--border-light);
           background: var(--bg-white);
+          box-shadow: 0 1px 0 rgba(17, 17, 17, 0.03);
           transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
         }
         .ps-sol-card:hover {
@@ -387,15 +401,15 @@ export default function ProblemSolution() {
           flex-shrink: 0;
         }
         .ps-sol-title {
-          font-size: 0.95rem;
+          font-size: 1rem;
           font-weight: 700;
-          margin-bottom: 0.3rem;
+          margin-bottom: 0.35rem;
           line-height: 1.3;
         }
         .ps-sol-desc {
-          font-size: 0.84rem;
-          color: var(--text-muted);
-          line-height: 1.65;
+          font-size: 0.86rem;
+          color: #666;
+          line-height: 1.62;
         }
 
         /* ── Responsive ── */
@@ -406,6 +420,9 @@ export default function ProblemSolution() {
           }
           .ps-arrow-col {
             display: none;
+          }
+          .ps-solutions-wrap {
+            padding-top: 0;
           }
         }
         @media (max-width: 480px) {
