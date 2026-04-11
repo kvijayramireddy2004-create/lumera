@@ -69,11 +69,6 @@ const BENEFITS = [
     title: "Years of Price Visibility",
     desc: "Long-term tariff lock through our PPA gives you energy pricing certainty for planning and budgeting.",
   },
-  {
-    label: "Day 1",
-    title: "Savings Begin Immediately",
-    desc: "No ramp-up period, no waiting. Cost reduction starts from the very first month of solar supply.",
-  },
 ];
 
 export default function Benefits() {
