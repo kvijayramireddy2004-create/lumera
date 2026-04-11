@@ -27,8 +27,8 @@
 
   --section-x: clamp(1.25rem, 5vw, 5rem);
   --max-w: 1200px;
-  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: "Barlow Condensed", sans-serif;
+  --font-body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
 *,
@@ -62,10 +62,10 @@ body {
 /* ── Typography ── */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
-  text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
-  font-weight: 800;
+  text-transform: none;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
 }
 
 p { line-height: 1.75; }

@@ -45,7 +45,7 @@ export default function Contact() {
 
         <div style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "550px", margin: "0 auto 4rem" }}>
           <div className="eyebrow">Partner With Us</div>
-          <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.4rem)", lineHeight: 0.95, marginBottom: "1rem" }}>
+          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95, marginBottom: "1rem" }}>
             Let's Build A <span className="grad-text">Smarter Energy</span> Future
           </h2>
           <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.75 }}>
@@ -58,8 +58,8 @@ export default function Contact() {
           {/* Info */}
           <div>
             <h3 style={{
-              fontFamily: "var(--font-display)", fontSize: "1.1rem",
-              fontWeight: 700, textTransform: "uppercase", marginBottom: "2rem", lineHeight: 1.3,
+              fontSize: "1.1rem",
+              fontWeight: 700, marginBottom: "2rem", lineHeight: 1.3,
             }}>Reach Us Directly</h3>
 
             {[

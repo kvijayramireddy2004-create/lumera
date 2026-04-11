@@ -13,7 +13,7 @@ export default function Benefits() {
 
         <div style={{ textAlign: "center", marginBottom: "4rem" }}>
           <div className="eyebrow">Why Choose Lumera</div>
-          <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.4rem)", lineHeight: 0.95 }}>
+          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95 }}>
             Real, Measurable <span className="grad-text">Benefits</span>
           </h2>
         </div>

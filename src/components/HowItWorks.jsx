@@ -13,7 +13,7 @@ export default function HowItWorks() {
         <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "550px", margin: "0 auto 5rem" }}>
           <div className="eyebrow eyebrow--light">The Process</div>
           <h2 style={{
-            fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
+            fontSize: "clamp(2rem, 4vw, 3rem)",
             lineHeight: 0.95, color: "#fff",
           }}>
             How It <span className="grad-text">Works</span>
@@ -40,8 +40,8 @@ export default function HowItWorks() {
                 onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--orange)"; e.currentTarget.style.borderColor = "rgba(249,115,22,0.3)"; }}
               >{s.num}</div>
               <h3 style={{
-                fontFamily: "var(--font-display)", fontSize: "1rem",
-                fontWeight: 700, textTransform: "uppercase",
+                fontSize: "1rem",
+                fontWeight: 700,
                 letterSpacing: "0.04em", color: "#fff",
                 marginBottom: "0.7rem", lineHeight: 1.3,
               }}>{s.title}</h3>

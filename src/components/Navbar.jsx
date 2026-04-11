@@ -145,8 +145,8 @@ export default function Navbar() {
           {LINKS.map(({ label, href }) => (
             <a key={href} href={href} onClick={(e) => go(e, href)}
               style={{
-                fontSize: "1.6rem", fontFamily: "var(--font-display)", fontWeight: 700,
-                textTransform: "uppercase", letterSpacing: "0.05em",
+                fontSize: "1.6rem", fontWeight: 700,
+                letterSpacing: "0.05em",
                 color: "#111", textDecoration: "none",
               }}
               onMouseEnter={(e) => e.target.style.color = "var(--orange)"}

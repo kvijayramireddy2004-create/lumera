@@ -11,11 +11,10 @@ export default function About() {
           <div>
             <div className="eyebrow">About Lumera Energy</div>
             <h2 style={{
-              fontSize: "clamp(2.2rem, 4vw, 3.4rem)",
+              fontSize: "clamp(2rem, 4vw, 3rem)",
               lineHeight: 0.95, marginBottom: "2rem",
             }}>
-              We Power <span className="grad-text">Industries</span>
-              <br />With Clean Solar
+              We Power <span className="grad-text">Industries</span> With Clean Solar
             </h2>
             <div className="divider" />
 

@@ -38,8 +38,7 @@ export default function Hero() {
         </div>
 
         <h1 style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "clamp(3rem, 8vw, 7rem)",
+          fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
           fontWeight: 900, lineHeight: 0.9,
           color: "#fff", marginBottom: "2rem",
         }}>
@@ -87,8 +86,8 @@ export default function Hero() {
             textAlign: "center",
           }}>
             <div style={{
-              fontFamily: "var(--font-display)", fontSize: "clamp(1.5rem,3vw,2.4rem)",
-              fontWeight: 900, color: "var(--orange)", marginBottom: "0.3rem",
+              fontSize: "clamp(1.5rem,3vw,2.4rem)",
+              fontWeight: 800, color: "var(--orange)", marginBottom: "0.3rem",
             }}>{val}</div>
             <div style={{
               fontSize: "0.72rem", color: "rgba(255,255,255,0.5)",

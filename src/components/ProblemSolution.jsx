@@ -20,7 +20,7 @@ export default function ProblemSolution() {
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "650px", margin: "0 auto 5rem" }}>
           <div className="eyebrow">The Challenge &amp; Our Answer</div>
-          <h2 style={{ fontSize: "clamp(2.2rem, 4vw, 3.4rem)", lineHeight: 0.95 }}>
+          <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95 }}>
             Why Bills Keep Rising —{" "}
             <span className="grad-text">And Our Fix</span>
           </h2>
@@ -34,8 +34,8 @@ export default function ProblemSolution() {
             padding: "2.5rem", border: "1px solid var(--border-light)",
           }}>
             <h3 style={{
-              fontFamily: "var(--font-display)", fontSize: "1.3rem",
-              fontWeight: 700, textTransform: "uppercase", marginBottom: "1.8rem",
+              fontSize: "1.3rem",
+              fontWeight: 700, marginBottom: "1.8rem",
               display: "flex", alignItems: "center", gap: "0.75rem", lineHeight: 1.3,
             }}>
               <span aria-hidden="true" style={{ fontSize: "1.3rem" }}>⚡</span>
@@ -69,8 +69,8 @@ export default function ProblemSolution() {
                 onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
               >
                 <h3 style={{
-                  fontFamily: "var(--font-display)", fontSize: "0.95rem",
-                  fontWeight: 700, textTransform: "uppercase",
+                  fontSize: "0.95rem",
+                  fontWeight: 700,
                   letterSpacing: "0.03em", marginBottom: "0.6rem", lineHeight: 1.3,
                 }}>{s.title}</h3>
                 <p style={{ fontSize: "0.82rem", color: "var(--text-muted)", lineHeight: 1.65 }}>{s.desc}</p>
