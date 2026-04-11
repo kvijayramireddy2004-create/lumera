@@ -27,7 +27,7 @@ export default function Footer() {
           borderBottom: "1px solid var(--border-dark)",
         }} className="footer-top">
           <div>
-            <img src={logo} alt="Lumera Energy" style={{ height: "50px", width: "auto", filter: "brightness(0) invert(1)", marginBottom: "1rem" }} />
+            <img src={logo} alt="Lumera Energy" style={{ height: "100px", width: "auto", filter: "brightness(0) invert(1)", marginBottom: "1rem" }} />
             <p style={{ fontSize: "0.82rem", color: "var(--text-white-muted)", maxWidth: "280px", lineHeight: 1.7 }}>
               Delivering clean, affordable solar power to Indian industry through long-term Power Purchase Agreements.
             </p>
