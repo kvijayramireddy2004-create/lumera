@@ -128,6 +128,7 @@ export default function Hero() {
           letter-spacing: 0.02em;
           color: rgba(255,255,255,0.65);
           margin-bottom: 0.1em;
+          padding-left: 0.08em;
         }
         .hero-heading-lg {
           display: flex;
@@ -142,7 +143,7 @@ export default function Hero() {
           -webkit-text-fill-color: transparent;
           background-clip: text;
           font-style: italic;
-          padding-bottom: 0.06em;
+          padding: 0 0.09em 0.08em 0.02em;
           line-height: 1.12;
         }
         .hero-heading-with {
@@ -161,7 +162,7 @@ export default function Hero() {
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           background-clip: text;
-          padding-bottom: 0.06em;
+          padding: 0 0.09em 0.08em 0.02em;
           line-height: 1.12;
         }
         .hero-metrics-shell {
