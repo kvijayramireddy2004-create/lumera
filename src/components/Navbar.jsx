@@ -79,6 +79,8 @@ export default function Navbar() {
             src={logo} alt="Lumera Energy — Home"
             style={{
               height: solid ? "48px" : "60px", width: "auto",
+              transform: solid ? "translateX(-18px) scale(2)" : "translateX(-22px) scale(2.2)",
+              transformOrigin: "left center",
               filter: solid ? "none" : "brightness(0) invert(1)",
               transition: "all 0.35s ease",
             }}

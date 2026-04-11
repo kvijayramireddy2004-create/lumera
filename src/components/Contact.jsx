@@ -14,10 +14,10 @@ const CONSUMPTION_OPTIONS = [
 
 function Field({ label, htmlFor, children }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
       <label htmlFor={htmlFor} style={{
-        fontSize: "0.7rem", fontWeight: 600, color: "var(--text-white-muted)",
-        letterSpacing: "0.08em", textTransform: "uppercase",
+        fontSize: "0.68rem", fontWeight: 600, color: "rgba(255,255,255,0.5)",
+        letterSpacing: "0.1em", textTransform: "uppercase",
       }}>{label}</label>
       {children}
     </div>

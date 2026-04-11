@@ -12,6 +12,29 @@ const SOLUTIONS = [
   { title: "Clean Renewable Supply", desc: "100% solar power. Strengthen your ESG credentials and sustainability goals." },
 ];
 
+function BoltIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+      <path
+        d="M13.5 2.5L5.5 13h5l-1 8.5 8-10.5h-5l1-8.5z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function TrendUpIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+      <path d="M4.5 16l5.2-5.2 3.2 3.2 6.6-6.6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14.5 7.4h5v5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export default function ProblemSolution() {
   return (
     <section id="solution" className="section" style={{ background: "var(--bg-white)" }}>
@@ -19,7 +42,7 @@ export default function ProblemSolution() {
 
         {/* Header */}
         <div style={{ textAlign: "center", marginBottom: "5rem", maxWidth: "650px", margin: "0 auto 5rem" }}>
-          <div className="eyebrow">The Challenge &amp; Our Answer</div>
+          <div className="eyebrow" style={{ color: "var(--text-light)" }}>The Challenge &amp; Our Answer</div>
           <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95 }}>
             Why Bills Keep Rising —{" "}
             <span className="grad-text">And Our Fix</span>
@@ -38,7 +61,9 @@ export default function ProblemSolution() {
               fontWeight: 700, marginBottom: "1.8rem",
               display: "flex", alignItems: "center", gap: "0.75rem", lineHeight: 1.3,
             }}>
-              <span aria-hidden="true" style={{ fontSize: "1.3rem" }}>⚡</span>
+              <span className="ps-heading-icon" aria-hidden="true">
+                <BoltIcon />
+              </span>
               Why Your Bills Keep Rising
             </h3>
 
@@ -50,7 +75,9 @@ export default function ProblemSolution() {
                   borderBottom: i < PROBLEMS.length - 1 ? "1px solid var(--border-light)" : "none",
                   fontSize: "0.9rem", color: "var(--text-secondary)",
                 }}>
-                  <span aria-hidden="true" style={{ color: "#ef4444", fontWeight: 700, flexShrink: 0 }}>↑</span>
+                  <span className="ps-list-icon" aria-hidden="true">
+                    <TrendUpIcon />
+                  </span>
                   <span>Rising cost: {p}</span>
                 </li>
               ))}
@@ -83,6 +110,33 @@ export default function ProblemSolution() {
       <style>{`
         @media (max-width: 900px) { .ps-grid { grid-template-columns: 1fr !important; } }
         @media (max-width: 480px) { .sol-grid { grid-template-columns: 1fr !important; } }
+
+        .ps-heading-icon {
+          width: 1.9rem;
+          height: 1.9rem;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #d97706;
+          background: rgba(245, 158, 11, 0.12);
+          border: 1px solid rgba(245, 158, 11, 0.28);
+          flex-shrink: 0;
+        }
+
+        .ps-list-icon {
+          width: 1.3rem;
+          height: 1.3rem;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          color: #dc2626;
+          background: rgba(220, 38, 38, 0.1);
+          border: 1px solid rgba(220, 38, 38, 0.24);
+          flex-shrink: 0;
+          margin-top: 1px;
+        }
       `}</style>
     </section>
   );

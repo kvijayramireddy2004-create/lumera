@@ -37,14 +37,15 @@ export default function Hero() {
           India's Industrial Solar Partner
         </div>
 
-        <h1 style={{
-          fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
-          fontWeight: 900, lineHeight: 0.9,
-          color: "#fff", marginBottom: "2rem",
-        }}>
-          Power Your{" "}
-          <span className="grad-text">Industry</span>
-          <br />With the Sun
+        <h1 className="hero-heading">
+          <span className="hero-heading-sm">Power Your</span>
+          <span className="hero-heading-lg">
+            <span className="hero-heading-highlight">Industry</span>
+          </span>
+          <span className="hero-heading-lg">
+            <span className="hero-heading-with">With</span>
+            <span className="hero-heading-sun">the Sun</span>
+          </span>
         </h1>
 
         <p style={{
@@ -70,37 +71,164 @@ export default function Hero() {
       </div>
 
       {/* Stats strip */}
-      <div style={{
-        position: "relative", zIndex: 2,
-        borderTop: "1px solid rgba(255,255,255,0.1)",
-        display: "grid", gridTemplateColumns: "repeat(3, 1fr)",
-      }}>
-        {[
-          ["20–40%", "Cost Reduction"],
-          ["Zero", "Upfront Investment"],
-          ["25+ yrs", "Price Visibility"],
-        ].map(([val, label]) => (
-          <div key={label} style={{
-            padding: "2rem var(--section-x)",
-            borderRight: "1px solid rgba(255,255,255,0.1)",
-            textAlign: "center",
-          }}>
-            <div style={{
-              fontSize: "clamp(1.5rem,3vw,2.4rem)",
-              fontWeight: 800, color: "var(--orange)", marginBottom: "0.3rem",
-            }}>{val}</div>
-            <div style={{
-              fontSize: "0.72rem", color: "rgba(255,255,255,0.5)",
-              textTransform: "uppercase", letterSpacing: "0.15em", fontWeight: 600,
-            }}>{label}</div>
-          </div>
-        ))}
+      <div className="hero-metrics-shell">
+        <div className="hero-metrics-grid">
+          {[
+            ["20–40%", "Energy cost reduction", "Typical savings versus grid tariff from month one."],
+            ["Zero", "Capex required", "We finance, build, own, and maintain the solar plant."],
+            ["25+ yrs", "Tariff visibility", "Long-term pricing certainty for procurement planning."],
+          ].map(([value, label, note]) => (
+            <article key={label} className="hero-metric">
+              <div className="hero-metric-value">{value}</div>
+              <div className="hero-metric-label">{label}</div>
+              <p className="hero-metric-note">{note}</p>
+            </article>
+          ))}
+        </div>
       </div>
 
       <style>{`
-        @media (max-width: 600px) {
-          #home > div:last-child { grid-template-columns: 1fr !important; }
-          #home > div:last-child > div { border-right: none !important; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .hero-heading {
+          font-size: clamp(2.8rem, 7vw, 5.5rem);
+          font-weight: 900;
+          line-height: 1.08;
+          color: #fff;
+          margin-bottom: 2rem;
+          letter-spacing: -0.03em;
+        }
+        .hero-heading-sm {
+          display: block;
+          font-weight: 400;
+          font-style: italic;
+          font-size: 0.5em;
+          letter-spacing: 0.02em;
+          color: rgba(255,255,255,0.65);
+          margin-bottom: 0.1em;
+        }
+        .hero-heading-lg {
+          display: flex;
+          align-items: baseline;
+          gap: 0.2em;
+        }
+        .hero-heading-highlight {
+          display: inline-block;
+          color: var(--orange);
+          background: linear-gradient(135deg, var(--orange), var(--amber));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          font-style: italic;
+          padding-bottom: 0.06em;
+          line-height: 1.12;
+        }
+        .hero-heading-with {
+          font-weight: 400;
+          font-style: italic;
+          font-size: 0.5em;
+          color: rgba(255,255,255,0.65);
+          letter-spacing: 0.02em;
+          align-self: center;
+        }
+        .hero-heading-sun {
+          display: inline-block;
+          font-style: italic;
+          font-weight: 900;
+          background: linear-gradient(135deg, var(--orange), var(--amber), var(--gold));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          padding-bottom: 0.06em;
+          line-height: 1.12;
+        }
+        .hero-metrics-shell {
+          position: relative;
+          z-index: 2;
+          padding: clamp(0.9rem, 2vw, 1.4rem) var(--section-x) clamp(1.2rem, 2.5vw, 1.8rem);
+          background: linear-gradient(180deg, rgba(8,12,20,0.28) 0%, rgba(7,10,18,0.85) 48%, rgba(7,10,18,0.96) 100%);
+          backdrop-filter: blur(4px);
+        }
+        .hero-metrics-grid {
+          max-width: 1080px;
+          margin: 0 auto;
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(2rem, 4vw, 3.6rem);
+        }
+        .hero-metric {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          gap: 0.38rem;
+          min-height: clamp(112px, 12vw, 136px);
+          padding: clamp(0.72rem, 1.2vw, 0.95rem);
+          border-radius: 14px;
+          background: linear-gradient(160deg, rgba(18,24,38,0.8) 0%, rgba(8,12,20,0.93) 100%);
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.13),
+            0 12px 24px rgba(0,0,0,0.28);
+          transition: box-shadow 0.24s ease;
+        }
+        .hero-metric:hover {
+          box-shadow:
+            inset 0 1px 0 rgba(255,255,255,0.16),
+            0 16px 28px rgba(0,0,0,0.33);
+        }
+        .hero-metric-value {
+          font-size: clamp(1.65rem, 2.2vw, 2.1rem);
+          font-weight: 800;
+          color: var(--orange);
+          line-height: 1;
+          letter-spacing: -0.02em;
+          margin-top: 0.1rem;
+          text-shadow: 0 0 24px rgba(249,115,22,0.18);
+        }
+        .hero-metric-label {
+          font-size: 0.84rem;
+          color: rgba(255,255,255,0.93);
+          line-height: 1.28;
+          font-weight: 620;
+        }
+        .hero-metric-note {
+          margin: 0;
+          font-size: 0.74rem;
+          color: rgba(255,255,255,0.66);
+          line-height: 1.5;
+          max-width: 35ch;
+        }
+        @media (prefers-contrast: more) {
+          .hero-metric {
+            background: rgba(0,0,0,0.92);
+          }
+          .hero-metric-note, .hero-metric-label { color: #fff; }
+        }
+        @media (max-width: 980px) {
+          .hero-metrics-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          .hero-metrics-grid .hero-metric:last-child { grid-column: 1 / -1; }
+        }
+        @media (max-width: 720px) {
+          .hero-metrics-grid { grid-template-columns: 1fr; }
+          .hero-metrics-grid .hero-metric:last-child { grid-column: auto; }
+          .hero-metric { min-height: auto; }
+        }
+        @media (max-width: 460px) {
+          .hero-metric-value { font-size: 1.7rem; }
+          .hero-metric-label { font-size: 0.86rem; }
+          .hero-metric-note { font-size: 0.74rem; }
+        }
+        @media (prefers-contrast: more) {
+          .hero-heading-sun {
+            background: none;
+            -webkit-text-fill-color: currentColor;
+            color: var(--orange-dark);
+          }
+        }
+        @media (prefers-contrast: more) {
+          .hero-heading-highlight {
+            background: none;
+            -webkit-text-fill-color: currentColor;
+            color: var(--orange-dark);
+          }
         }
       `}</style>
     </section>

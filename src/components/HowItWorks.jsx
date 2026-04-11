@@ -27,18 +27,8 @@ export default function HowItWorks() {
           display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "2rem",
         }} className="hiw-grid">
           {STEPS.map((s) => (
-            <div key={s.num} style={{ textAlign: "center" }}>
-              <div style={{
-                width: "56px", height: "56px", borderRadius: "50%",
-                border: "2px solid rgba(249,115,22,0.3)",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: 700,
-                color: "var(--orange)", margin: "0 auto 1.5rem",
-                transition: "all 0.3s",
-              }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = "var(--orange)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "var(--orange)"; }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--orange)"; e.currentTarget.style.borderColor = "rgba(249,115,22,0.3)"; }}
-              >{s.num}</div>
+            <div key={s.num} className="hiw-step" style={{ textAlign: "center" }}>
+              <div className="hiw-step-badge">{String(Number(s.num))}</div>
               <h3 style={{
                 fontSize: "1rem",
                 fontWeight: 700,
@@ -62,6 +52,27 @@ export default function HowItWorks() {
       </div>
 
       <style>{`
+        .hiw-step {
+          transition: transform 220ms ease;
+        }
+        .hiw-step:hover {
+          transform: translateY(-4px);
+        }
+        .hiw-step-badge {
+          margin: 0 auto 1rem;
+          display: inline-block;
+          font-family: var(--font-display);
+          font-size: clamp(2.2rem, 4vw, 2.8rem);
+          font-weight: 900;
+          line-height: 1;
+          color: #f97316;
+          text-shadow: 0 0 22px rgba(249, 115, 22, 0.25);
+          transition: text-shadow 220ms ease, transform 220ms ease;
+        }
+        .hiw-step:hover .hiw-step-badge {
+          transform: translateY(-2px);
+          text-shadow: 0 0 28px rgba(249, 115, 22, 0.35);
+        }
         @media (max-width: 900px) { .hiw-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 3rem !important; } }
         @media (max-width: 480px) { .hiw-grid { grid-template-columns: 1fr !important; } }
       `}</style>
