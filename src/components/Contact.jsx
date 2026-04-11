@@ -16,7 +16,7 @@ function Field({ label, htmlFor, children }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
       <label htmlFor={htmlFor} style={{
-        fontSize: "0.7rem", fontWeight: 600, color: "var(--text-muted)",
+        fontSize: "0.7rem", fontWeight: 600, color: "var(--text-white-muted)",
         letterSpacing: "0.08em", textTransform: "uppercase",
       }}>{label}</label>
       {children}
@@ -40,7 +40,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="section" style={{ background: "var(--bg-light)" }}>
+    <section id="contact" className="section section--dark">
       <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
 
         <div style={{ textAlign: "center", marginBottom: "4rem", maxWidth: "550px", margin: "0 auto 4rem" }}>
@@ -48,7 +48,7 @@ export default function Contact() {
           <h2 style={{ fontSize: "clamp(2rem, 4vw, 3rem)", lineHeight: 0.95, marginBottom: "1rem" }}>
             Let's Build A <span className="grad-text">Smarter Energy</span> Future
           </h2>
-          <p style={{ color: "var(--text-muted)", fontSize: "0.95rem", lineHeight: 1.75 }}>
+          <p style={{ color: "var(--text-white-muted)", fontSize: "0.95rem", lineHeight: 1.75 }}>
             Get a free energy audit and discover exactly how much your industry can save with Lumera.
           </p>
         </div>
@@ -63,18 +63,18 @@ export default function Contact() {
             }}>Reach Us Directly</h3>
 
             {[
-              { icon: "📞", label: "Phone", content: (<><a href="tel:+919550800865" style={{ color: "var(--text-primary)", textDecoration: "none" }}>+91 9550800865</a><br /><a href="tel:+919494929955" style={{ color: "var(--text-primary)", textDecoration: "none" }}>+91 9494929955</a></>) },
-              { icon: "✉️", label: "Email", content: (<a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "var(--text-primary)", textDecoration: "none" }}>harshavardhanravana@lumeraenergy.in</a>) },
-              { icon: "🌐", label: "Website", content: (<a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "var(--text-primary)", textDecoration: "none" }}>lumeraenergy.in <span className="sr-only">(opens in new tab)</span></a>) },
+              { icon: "📞", label: "Phone", content: (<><a href="tel:+919550800865" style={{ color: "#fff", textDecoration: "none" }}>+91 9550800865</a><br /><a href="tel:+919494929955" style={{ color: "#fff", textDecoration: "none" }}>+91 9494929955</a></>) },
+              { icon: "✉️", label: "Email", content: (<a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "#fff", textDecoration: "none" }}>harshavardhanravana@lumeraenergy.in</a>) },
+              { icon: "🌐", label: "Website", content: (<a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "#fff", textDecoration: "none" }}>lumeraenergy.in <span className="sr-only">(opens in new tab)</span></a>) },
             ].map(({ icon, label, content }) => (
               <div key={label} style={{ display: "flex", gap: "1rem", marginBottom: "1.5rem", alignItems: "flex-start" }}>
                 <div style={{
                   width: "40px", height: "40px", borderRadius: "10px", flexShrink: 0,
-                  background: "var(--bg-white)", border: "1px solid var(--border-light)",
+                  background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)",
                   display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1rem",
                 }}><span aria-hidden="true">{icon}</span></div>
                 <div>
-                  <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.2rem" }}>{label}</div>
+                  <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--text-white-muted)", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: "0.2rem" }}>{label}</div>
                   <div style={{ fontSize: "0.88rem", lineHeight: 1.6 }}>{content}</div>
                 </div>
               </div>
@@ -82,10 +82,10 @@ export default function Contact() {
 
             <div style={{
               marginTop: "2rem", padding: "1.4rem", borderRadius: "14px",
-              background: "var(--bg-white)", border: "1px solid var(--border-light)",
+              background: "rgba(249,115,22,0.08)", border: "1px solid rgba(249,115,22,0.2)",
             }}>
               <div style={{ fontSize: "0.68rem", fontWeight: 700, color: "var(--orange)", letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Free Energy Audit</div>
-              <p style={{ fontSize: "0.84rem", color: "var(--text-muted)", lineHeight: 1.7 }}>
+              <p style={{ fontSize: "0.84rem", color: "var(--text-white-muted)", lineHeight: 1.7 }}>
                 We'll analyze your electricity bills and show you exactly how much you can save — completely free, zero commitment.
               </p>
             </div>
@@ -120,14 +120,13 @@ export default function Contact() {
             </Field>
             <button
               type="submit" disabled={loading} aria-busy={loading}
-              className="btn btn--primary"
+              className="btn-pill btn-orange"
               style={{
-                width: "100%", justifyContent: "center", padding: "1rem",
-                fontSize: "0.95rem",
+                width: "100%", justifyContent: "center",
                 background: sent ? "#22c55e" : error ? "#ef4444" : undefined,
               }}
             >
-              {loading ? "Sending…" : sent ? "✓ Sent! We'll contact you within 24 hours." : error ? "✗ Failed. Please try again." : "Send Enquiry →"}
+              {loading ? "Sending…" : sent ? "✓ Sent! We'll contact you within 24 hours." : error ? "✗ Failed. Please try again." : <>Send Enquiry <span className="arrow">→</span></>}
             </button>
             <div aria-live="polite" className="sr-only">
               {loading ? "Sending your enquiry..." : sent ? "Enquiry sent successfully." : error ? "Failed to send. Please try again." : ""}

@@ -58,13 +58,13 @@ export default function Hero() {
         </p>
 
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-          <a href="#contact" className="btn btn--primary"
+          <a href="#contact" className="btn-pill btn-orange"
             onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
-            Get Free Energy Audit
+            Get Free Energy Audit <span className="arrow">→</span>
           </a>
-          <a href="#about" className="btn btn--outline-white"
+          <a href="#about" className="btn-pill btn-outline-w"
             onClick={(e) => { e.preventDefault(); document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" }); }}>
-            Learn More
+            Learn More <span className="arrow">→</span>
           </a>
         </div>
       </div>

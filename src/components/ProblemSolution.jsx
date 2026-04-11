@@ -14,7 +14,7 @@ const SOLUTIONS = [
 
 export default function ProblemSolution() {
   return (
-    <section id="solution" className="section" style={{ background: "var(--bg-light)" }}>
+    <section id="solution" className="section" style={{ background: "var(--bg-white)" }}>
       <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
 
         {/* Header */}

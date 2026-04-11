@@ -67,9 +67,10 @@ export default function Navbar() {
           padding: "0 var(--section-x)",
           height: solid ? "64px" : "80px",
           display: "flex", alignItems: "center", justifyContent: "space-between",
-          background: solid ? "rgba(255,255,255,0.97)" : "transparent",
-          backdropFilter: solid ? "blur(20px)" : "none",
-          borderBottom: solid ? "1px solid rgba(0,0,0,0.06)" : "1px solid transparent",
+          background: solid ? "rgba(255,255,255,0.6)" : "transparent",
+          backdropFilter: solid ? "blur(24px) saturate(180%)" : "none",
+          WebkitBackdropFilter: solid ? "blur(24px) saturate(180%)" : "none",
+          borderBottom: solid ? "1px solid rgba(255,255,255,0.3)" : "1px solid transparent",
           transition: "all 0.35s ease",
         }}
       >
@@ -103,9 +104,9 @@ export default function Navbar() {
               {label}
             </a>
           ))}
-          <a href="#contact" className="btn btn--primary" onClick={(e) => go(e, "#contact")}
-            style={{ padding: "0.55rem 1.4rem", fontSize: "0.82rem", marginLeft: "0.5rem" }}>
-            Get Free Audit
+          <a href="#contact" className="btn-pill btn-dark btn-nav" onClick={(e) => go(e, "#contact")}
+            style={{ marginLeft: "0.5rem" }}>
+            Get Free Audit <span className="arrow">→</span>
           </a>
         </div>
 
@@ -153,7 +154,7 @@ export default function Navbar() {
               onMouseLeave={(e) => e.target.style.color = "#111"}
             >{label}</a>
           ))}
-          <a href="#contact" className="btn btn--primary" style={{ marginTop: "1rem" }} onClick={(e) => go(e, "#contact")}>Get Free Audit</a>
+          <a href="#contact" className="btn-pill btn-dark" style={{ marginTop: "1rem" }} onClick={(e) => go(e, "#contact")}>Get Free Audit <span className="arrow">→</span></a>
         </div>
       )}
 

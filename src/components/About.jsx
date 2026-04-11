@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <section id="about" className="section" style={{ background: "var(--bg-white)" }}>
+    <section id="about" className="section" style={{ background: "var(--bg-warm)" }}>
       <div style={{ maxWidth: "var(--max-w)", margin: "0 auto" }}>
         <div style={{
           display: "grid", gridTemplateColumns: "1fr 1fr",
@@ -35,13 +35,13 @@ export default function About() {
             </ul>
 
             <div style={{ marginTop: "2.5rem", display: "flex", gap: "1rem", flexWrap: "wrap" }}>
-              <a href="#contact" className="btn btn--primary"
+              <a href="#contact" className="btn-pill btn-dark"
                 onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
-                Start Your Journey →
+                Start Your Journey <span className="arrow">→</span>
               </a>
-              <a href="#solution" className="btn btn--outline"
+              <a href="#solution" className="btn-pill btn-outline"
                 onClick={(e) => { e.preventDefault(); document.querySelector("#solution")?.scrollIntoView({ behavior: "smooth" }); }}>
-                See Our Solution
+                See Our Solution <span className="arrow">→</span>
               </a>
             </div>
           </div>

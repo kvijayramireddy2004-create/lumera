@@ -54,9 +54,9 @@ export default function HowItWorks() {
           <p style={{ color: "var(--text-white-muted)", fontSize: "0.88rem", fontStyle: "italic", marginBottom: "2rem" }}>
             This allows industries to reduce operational energy costs without any capital investment.
           </p>
-          <a href="#contact" className="btn btn--primary"
+          <a href="#contact" className="btn-pill btn-orange"
             onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
-            Get Your Free Energy Audit →
+            Get Your Free Energy Audit <span className="arrow">→</span>
           </a>
         </div>
       </div>
