@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import logo from "../assets/logo.png";
 
 const LINKS = [
@@ -12,6 +12,8 @@ export default function Navbar() {
   const [solid, setSolid] = useState(false);
   const [hovered, setHover] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
+  const hamburgerRef = useRef(null);
+  const menuRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setSolid(window.scrollY > 60);
@@ -19,17 +21,31 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menu on resize to desktop
   useEffect(() => {
     const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  const closeMenu = useCallback(() => {
+    setMenuOpen(false);
+    hamburgerRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") closeMenu(); };
+    document.addEventListener("keydown", onKey);
+    const firstLink = menuRef.current?.querySelector("a");
+    firstLink?.focus();
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen, closeMenu]);
+
   const handleAnchor = (e, href) => {
     e.preventDefault();
     setMenuOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    const target = href === "#home" ? document.body : document.querySelector(href);
+    target?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
@@ -93,12 +109,17 @@ export default function Navbar() {
 
         {/* Hamburger */}
         <button
+          ref={hamburgerRef}
           className="nav-hamburger"
           onClick={() => setMenuOpen((o) => !o)}
-          aria-label="Toggle menu"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
           style={{
             display: "none", flexDirection: "column", gap: "5px",
-            background: "none", border: "none", cursor: "pointer", padding: "4px",
+            alignItems: "center", justifyContent: "center",
+            background: "none", border: "none", cursor: "pointer",
+            padding: "10px", minWidth: "44px", minHeight: "44px",
           }}
         >
           {[0, 1, 2].map((i) => (
@@ -120,13 +141,20 @@ export default function Navbar() {
 
       {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div style={{
-          position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
-          background: "rgba(255,255,255,0.98)", zIndex: 999,
-          display: "flex", flexDirection: "column",
-          alignItems: "center", justifyContent: "center", gap: "2rem",
-          backdropFilter: "blur(20px)",
-        }}>
+        <div
+          id="mobile-menu"
+          ref={menuRef}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Navigation menu"
+          style={{
+            position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
+            background: "rgba(255,255,255,0.98)", zIndex: 999,
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center", gap: "2rem",
+            backdropFilter: "blur(20px)",
+          }}
+        >
           {LINKS.map(({ label, href }) => (
             <a
               key={href}

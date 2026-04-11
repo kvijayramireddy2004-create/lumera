@@ -29,6 +29,8 @@ export default function Hero() {
       }}
     >
       <div
+        role="img"
+        aria-label="Solar panels powering industrial facilities at sunrise"
         style={{
           position: "absolute",
           inset: 0,
@@ -194,7 +196,7 @@ export default function Hero() {
             <div
               style={{
                 fontSize: "0.7rem",
-                color: "rgba(255,255,255,0.5)",
+                color: "rgba(255,255,255,0.75)",
                 textTransform: "uppercase",
               }}
             >

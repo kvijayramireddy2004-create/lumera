@@ -10,9 +10,35 @@ const EMAILJS_TEMPLATE_ID = "template_dk7rrkf";
 const EMAILJS_PUBLIC_KEY = "OX29iNzgTyt3wL_Sh";
 
 const CONTACT_ITEMS = [
-  { icon: "📞", label: "Phone", value: "+91 9550800865\n+91 9494929955" },
-  { icon: "✉️", label: "Email", value: "harshavardhanravana@lumeraenergy.in" },
-  { icon: "🌐", label: "Website", value: "lumeraenergy.in" },
+  {
+    icon: "📞",
+    label: "Phone",
+    render: () => (
+      <>
+        <a href="tel:+919550800865" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>+91 9550800865</a>
+        <br />
+        <a href="tel:+919494929955" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>+91 9494929955</a>
+      </>
+    ),
+  },
+  {
+    icon: "✉️",
+    label: "Email",
+    render: () => (
+      <a href="mailto:harshavardhanravana@lumeraenergy.in" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
+        harshavardhanravana@lumeraenergy.in
+      </a>
+    ),
+  },
+  {
+    icon: "🌐",
+    label: "Website",
+    render: () => (
+      <a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
+        lumeraenergy.in
+      </a>
+    ),
+  },
 ];
 
 const CONSUMPTION_OPTIONS = [
@@ -23,14 +49,15 @@ const CONSUMPTION_OPTIONS = [
   "Above 5,00,000 kWh / month",
 ];
 
-function FormField({ label, children }) {
+function FormField({ label, htmlFor, children }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "0.38rem" }}>
       <label
+        htmlFor={htmlFor}
         style={{
           fontSize: "0.72rem",
           fontWeight: 700,
-          color: "#94A3B8",
+          color: "#B0BEC5",
           letterSpacing: "0.08em",
           textTransform: "uppercase",
         }}
@@ -193,7 +220,7 @@ export default function Contact() {
           </h2>
           <p
             style={{
-              color: "rgba(255,255,255,0.52)",
+              color: "rgba(255,255,255,0.75)",
               fontSize: "0.95rem",
               maxWidth: "480px",
               margin: "0 auto",
@@ -227,7 +254,7 @@ export default function Contact() {
             >
               Reach Us Directly
             </h3>
-            {CONTACT_ITEMS.map(({ icon, label, value }) => (
+            {CONTACT_ITEMS.map(({ icon, label, render }) => (
               <div
                 key={label}
                 style={{
@@ -258,7 +285,7 @@ export default function Contact() {
                     style={{
                       fontSize: "0.75rem",
                       fontWeight: 700,
-                      color: "rgba(255,255,255,0.4)",
+                      color: "rgba(255,255,255,0.65)",
                       letterSpacing: "0.08em",
                       textTransform: "uppercase",
                       marginBottom: "0.2rem",
@@ -269,12 +296,12 @@ export default function Contact() {
                   <div
                     style={{
                       fontSize: "0.88rem",
-                      color: "rgba(255,255,255,0.72)",
+                      color: "rgba(255,255,255,0.85)",
                       lineHeight: 1.6,
                       whiteSpace: "pre-line",
                     }}
                   >
-                    {value}
+                    {render()}
                   </div>
                 </div>
               </div>
@@ -305,7 +332,7 @@ export default function Contact() {
               <div
                 style={{
                   fontSize: "0.84rem",
-                  color: "rgba(255,255,255,0.55)",
+                  color: "rgba(255,255,255,0.75)",
                   lineHeight: 1.7,
                 }}
               >
@@ -330,8 +357,9 @@ export default function Contact() {
                 gap: "1rem",
               }}
             >
-              <FormField label="Company Name *">
+              <FormField label="Company Name *" htmlFor="company">
                 <input
+                  id="company"
                   className="form-input"
                   type="text"
                   name="company"
@@ -339,8 +367,9 @@ export default function Contact() {
                   required
                 />
               </FormField>
-              <FormField label="Contact Person *">
+              <FormField label="Contact Person *" htmlFor="name">
                 <input
+                  id="name"
                   className="form-input"
                   type="text"
                   name="name"
@@ -357,8 +386,9 @@ export default function Contact() {
                 gap: "1rem",
               }}
             >
-              <FormField label="Email Address *">
+              <FormField label="Email Address *" htmlFor="email">
                 <input
+                  id="email"
                   className="form-input"
                   type="email"
                   name="email"
@@ -366,8 +396,9 @@ export default function Contact() {
                   required
                 />
               </FormField>
-              <FormField label="Phone Number *">
+              <FormField label="Phone Number *" htmlFor="phone">
                 <input
+                  id="phone"
                   className="form-input"
                   type="tel"
                   name="phone"
@@ -376,8 +407,9 @@ export default function Contact() {
                 />
               </FormField>
             </div>
-            <FormField label="Monthly Electricity Consumption">
+            <FormField label="Monthly Electricity Consumption" htmlFor="consumption">
               <select
+                id="consumption"
                 className="form-input"
                 name="consumption"
                 style={{ background: "#fff" }}
@@ -387,8 +419,9 @@ export default function Contact() {
                 ))}
               </select>
             </FormField>
-            <FormField label="Message">
+            <FormField label="Message" htmlFor="message">
               <textarea
+                id="message"
                 className="form-input"
                 name="message"
                 rows={4}
@@ -399,6 +432,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={loading}
+              aria-busy={loading}
               className="btn-primary"
               style={{
                 width: "100%",
@@ -426,6 +460,15 @@ export default function Contact() {
                 ? "✗ Failed to send. Please try again."
                 : "Send Enquiry →"}
             </button>
+            <div aria-live="polite" className="sr-only">
+              {loading
+                ? "Sending your enquiry..."
+                : sent
+                ? "Enquiry sent successfully. We will contact you within 24 hours."
+                : error
+                ? "Failed to send enquiry. Please try again."
+                : ""}
+            </div>
           </form>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { StrictMode, useEffect } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import Lenis from 'lenis'
 import gsap from 'gsap'
@@ -8,19 +8,19 @@ import App from './App'
 
 gsap.registerPlugin(ScrollTrigger)
 
-// Initialize Lenis smooth scroll and connect to GSAP
-const lenis = new Lenis({
-  duration: 1.3,
-  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-  smoothWheel: true,
-})
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-// Sync Lenis with GSAP ticker
-gsap.ticker.add((time) => lenis.raf(time * 1000))
-gsap.ticker.lagSmoothing(0)
+if (!prefersReducedMotion) {
+  const lenis = new Lenis({
+    duration: 1.3,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+  })
 
-// Expose for ScrollTrigger
-lenis.on('scroll', ScrollTrigger.update)
+  gsap.ticker.add((time) => lenis.raf(time * 1000))
+  gsap.ticker.lagSmoothing(0)
+  lenis.on('scroll', ScrollTrigger.update)
+}
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

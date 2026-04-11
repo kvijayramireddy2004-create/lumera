@@ -43,13 +43,13 @@ export default function Footer() {
               onClick={go(hrefs[i])}
               style={{
                 fontSize: "0.82rem",
-                color: "rgba(255,255,255,0.38)",
+                color: "rgba(255,255,255,0.7)",
                 textDecoration: "none",
                 transition: "color 0.25s",
               }}
               onMouseEnter={(e) => (e.target.style.color = "#F97316")}
               onMouseLeave={(e) =>
-                (e.target.style.color = "rgba(255,255,255,0.38)")
+                (e.target.style.color = "rgba(255,255,255,0.7)")
               }
             >
               {l}
@@ -58,7 +58,7 @@ export default function Footer() {
         </nav>
 
         {/* Copy */}
-        <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.28)" }}>
+        <div style={{ fontSize: "0.78rem", color: "rgba(255,255,255,0.6)" }}>
           © 2025 Lumera Energy. All rights reserved.
         </div>
       </div>
