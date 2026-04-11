@@ -21,6 +21,7 @@ export default function Hero() {
 
   return (
     <section
+      id="home"
       style={{
         position: "relative",
         minHeight: "100vh",
@@ -42,6 +43,7 @@ export default function Hero() {
       />
 
       <div
+        aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
@@ -59,8 +61,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Sun glow overlay */}
       <div
+        aria-hidden="true"
         style={{
           position: "absolute",
           right: "15%",
@@ -74,8 +76,8 @@ export default function Hero() {
         }}
       />
 
-      {/* Bottom fade */}
       <div
+        aria-hidden="true"
         style={{
           position: "absolute",
           bottom: 0,
@@ -135,11 +137,7 @@ export default function Hero() {
         >
           POWER YOUR <br />
           <span
-            style={{
-              background: "linear-gradient(135deg,#F97316,#FCD34D)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
+            className="grad-text"
           >
             INDUSTRY
           </span>
@@ -183,12 +181,10 @@ export default function Hero() {
         ].map(([val, label]) => (
           <div key={label} className="hero-stat">
             <div
+              className="grad-text"
               style={{
                 fontSize: "2.2rem",
                 fontWeight: 900,
-                background: "linear-gradient(135deg,#F97316,#FCD34D)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
               }}
             >
               {val}

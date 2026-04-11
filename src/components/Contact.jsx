@@ -35,14 +35,13 @@ const CONTACT_ITEMS = [
     label: "Website",
     render: () => (
       <a href="https://lumeraenergy.in" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(255,255,255,0.85)", textDecoration: "none" }}>
-        lumeraenergy.in
+        lumeraenergy.in <span className="sr-only">(opens in new tab)</span>
       </a>
     ),
   },
 ];
 
 const CONSUMPTION_OPTIONS = [
-  "Select range — helps us prepare your audit",
   "Below 50,000 kWh / month",
   "50,000 – 2,00,000 kWh / month",
   "2,00,000 – 5,00,000 kWh / month",
@@ -278,7 +277,7 @@ export default function Contact() {
                     fontSize: "1rem",
                   }}
                 >
-                  {icon}
+                  <span aria-hidden="true">{icon}</span>
                 </div>
                 <div>
                   <div
@@ -412,10 +411,12 @@ export default function Contact() {
                 id="consumption"
                 className="form-input"
                 name="consumption"
+                defaultValue=""
                 style={{ background: "#fff" }}
               >
+                <option value="" disabled>Select range — helps us prepare your audit</option>
                 {CONSUMPTION_OPTIONS.map((o) => (
-                  <option key={o}>{o}</option>
+                  <option key={o} value={o}>{o}</option>
                 ))}
               </select>
             </FormField>

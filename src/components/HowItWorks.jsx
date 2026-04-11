@@ -34,11 +34,12 @@ function Step({ num, icon, title, desc, index }) {
       }}>
         {num}
       </div>
-      <div style={{ fontSize: '2rem', marginBottom: '0.9rem' }}>{icon}</div>
-      <div style={{
+      <div aria-hidden="true" style={{ fontSize: '2rem', marginBottom: '0.9rem' }}>{icon}</div>
+      <h3 style={{
         fontFamily: "'Barlow Condensed',sans-serif", fontSize: '1.05rem', fontWeight: 700,
         textTransform: 'uppercase', letterSpacing: '0.05em', color: '#0C1220', marginBottom: '0.5rem',
-      }}>{title}</div>
+        lineHeight: 1.3,
+      }}>{title}</h3>
       <div style={{ fontSize: '0.85rem', color: '#64748B', lineHeight: 1.65, maxWidth: '180px' }}>{desc}</div>
     </div>
   )
@@ -106,7 +107,7 @@ export default function HowItWorks() {
         {/* Footer note */}
         <p className="hiw-footer" style={{
           textAlign: 'center', marginTop: '3rem',
-          color: '#94A3B8', fontSize: '0.88rem', fontStyle: 'italic',
+          color: '#64748B', fontSize: '0.88rem', fontStyle: 'italic',
         }}>
           This allows industries to reduce operational energy costs without any capital investment.
         </p>

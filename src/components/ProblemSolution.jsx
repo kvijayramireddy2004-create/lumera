@@ -56,6 +56,7 @@ function SolCard({ icon, title, desc }) {
       }}
     >
       <div
+        aria-hidden="true"
         style={{
           width: "48px",
           height: "48px",
@@ -71,7 +72,7 @@ function SolCard({ icon, title, desc }) {
         {icon}
       </div>
 
-      <div
+      <h3
         style={{
           fontFamily: "'Barlow Condensed',sans-serif",
           fontSize: "1.05rem",
@@ -80,10 +81,11 @@ function SolCard({ icon, title, desc }) {
           letterSpacing: "0.04em",
           color: "#0C1220",
           marginBottom: "0.4rem",
+          lineHeight: 1.3,
         }}
       >
         {title}
-      </div>
+      </h3>
 
       <div style={{ fontSize: "0.83rem", color: "#64748B", lineHeight: 1.65 }}>
         {desc}
@@ -211,7 +213,7 @@ export default function ProblemSolution() {
                 marginBottom: "1.6rem",
               }}
             >
-              <span style={{ fontSize: "1.5rem" }}>⚡</span>
+              <span aria-hidden="true" style={{ fontSize: "1.5rem" }}>⚡</span>
 
               <h3
                 style={{
@@ -220,27 +222,30 @@ export default function ProblemSolution() {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.04em",
+                  lineHeight: 1.3,
                 }}
               >
                 Why Your Bills Keep Rising
               </h3>
             </div>
 
-            {PROBLEMS.map((p, i) => (
-              <div
-                key={i}
-                style={{
-                  display: "flex",
-                  gap: "0.75rem",
-                  padding: "0.72rem 0",
-                  borderBottom:
-                    i < PROBLEMS.length - 1 ? "1px solid #FEF3E2" : "none",
-                }}
-              >
-                <span style={{ color: "#EF4444", fontWeight: 700 }}>↑</span>
-                {p}
-              </div>
-            ))}
+            <ul style={{ listStyle: "none" }}>
+              {PROBLEMS.map((p, i) => (
+                <li
+                  key={i}
+                  style={{
+                    display: "flex",
+                    gap: "0.75rem",
+                    padding: "0.72rem 0",
+                    borderBottom:
+                      i < PROBLEMS.length - 1 ? "1px solid #FEF3E2" : "none",
+                  }}
+                >
+                  <span aria-hidden="true" style={{ color: "#EF4444", fontWeight: 700 }}>↑</span>
+                  <span>Rising cost: {p}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Solutions */}

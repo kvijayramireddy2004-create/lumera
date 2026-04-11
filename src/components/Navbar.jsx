@@ -34,9 +34,24 @@ export default function Navbar() {
 
   useEffect(() => {
     if (!menuOpen) return;
-    const onKey = (e) => { if (e.key === "Escape") closeMenu(); };
+    const menu = menuRef.current;
+    const onKey = (e) => {
+      if (e.key === "Escape") { closeMenu(); return; }
+      if (e.key === "Tab" && menu) {
+        const focusable = menu.querySelectorAll("a, button");
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
+    };
     document.addEventListener("keydown", onKey);
-    const firstLink = menuRef.current?.querySelector("a");
+    const firstLink = menu?.querySelector("a");
     firstLink?.focus();
     return () => document.removeEventListener("keydown", onKey);
   }, [menuOpen, closeMenu]);
@@ -44,24 +59,26 @@ export default function Navbar() {
   const handleAnchor = (e, href) => {
     e.preventDefault();
     setMenuOpen(false);
-    const target = href === "#home" ? document.body : document.querySelector(href);
+    const target = document.querySelector(href);
     target?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   return (
     <>
-      <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
-        padding: solid ? "0.5rem 5rem" : "0.8rem 5rem",
-        display: "flex", alignItems: "center", justifyContent: "space-between",
-        background: solid || menuOpen ? "rgba(255,255,255,0.96)" : "transparent",
-        backdropFilter: solid || menuOpen ? "blur(22px)" : "none",
-        WebkitBackdropFilter: solid || menuOpen ? "blur(22px)" : "none",
-        borderBottom: solid || menuOpen ? "1px solid rgba(249,115,22,0.1)" : "1px solid transparent",
-        boxShadow: solid || menuOpen ? "0 2px 24px rgba(0,0,0,0.06)" : "none",
-        transition: "all 0.38s cubic-bezier(0.4,0,0.2,1)",
-      }}
-      className="lumera-nav"
+      <nav
+        aria-label="Primary"
+        style={{
+          position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
+          padding: solid ? "0.5rem 5rem" : "0.8rem 5rem",
+          display: "flex", alignItems: "center", justifyContent: "space-between",
+          background: solid || menuOpen ? "rgba(255,255,255,0.96)" : "transparent",
+          backdropFilter: solid || menuOpen ? "blur(22px)" : "none",
+          WebkitBackdropFilter: solid || menuOpen ? "blur(22px)" : "none",
+          borderBottom: solid || menuOpen ? "1px solid rgba(249,115,22,0.1)" : "1px solid transparent",
+          boxShadow: solid || menuOpen ? "0 2px 24px rgba(0,0,0,0.06)" : "none",
+          transition: "all 0.38s cubic-bezier(0.4,0,0.2,1)",
+        }}
+        className="lumera-nav"
       >
         {/* Logo */}
         <a href="#home" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}
@@ -89,6 +106,7 @@ export default function Navbar() {
                   color: hovered === href ? "#F97316" : solid ? "#334155" : "rgba(255,255,255,0.75)",
                   textDecoration: "none", fontSize: "0.875rem", fontWeight: 500,
                   letterSpacing: "0.03em", transition: "color 0.25s",
+                  padding: "0.5rem 0.25rem", minHeight: "44px", display: "inline-flex", alignItems: "center",
                 }}
                 onMouseEnter={() => setHover(href)}
                 onMouseLeave={() => setHover(null)}

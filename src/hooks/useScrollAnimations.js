@@ -6,8 +6,10 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function useScrollAnimations(ref) {
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
-      // Headers
       gsap.utils.toArray(".reveal-up").forEach((el) => {
         gsap.from(el, {
           scrollTrigger: {
@@ -21,7 +23,6 @@ export default function useScrollAnimations(ref) {
         });
       });
 
-      // Batched cards (🔥 key optimization)
       ScrollTrigger.batch(".reveal-card", {
         start: "top 90%",
         onEnter: (batch) =>

@@ -94,12 +94,39 @@ h4 {
   padding: var(--section-y) var(--section-x);
 }
 
+/* ── Skip Link ── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--orange);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border-radius: 0 0 8px 8px;
+  text-decoration: none;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+}
+
 /* ── Gradient Text ── */
 .grad-text {
+  color: var(--orange);
   background: linear-gradient(135deg, var(--orange), var(--amber));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+@media (prefers-contrast: more) {
+  .grad-text {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--orange-dark);
+  }
 }
 
 /* ── Section Label ── */
@@ -156,6 +183,11 @@ h4 {
   transform: translateY(-2px);
   box-shadow: 0 10px 36px rgba(249, 115, 22, 0.5);
 }
+.btn-primary:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px var(--orange);
+}
 
 .btn-secondary {
   display: inline-flex;
@@ -177,6 +209,10 @@ h4 {
   border-color: var(--orange);
   color: var(--orange);
   transform: translateY(-2px);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
 }
 
 .btn-white {
@@ -200,6 +236,10 @@ h4 {
   transform: translateY(-2px);
   box-shadow: 0 10px 36px rgba(0, 0, 0, 0.25);
 }
+.btn-white:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+}
 
 .btn-outline-white {
   display: inline-flex;
@@ -221,6 +261,17 @@ h4 {
   border-color: rgba(255, 255, 255, 0.85);
   background: rgba(255, 255, 255, 0.08);
   transform: translateY(-2px);
+}
+.btn-outline-white:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ── Global focus visible for links ── */
+a:focus-visible {
+  outline: 2px solid var(--orange);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 /* ── Form inputs ── */
@@ -413,10 +464,17 @@ section[id] {
   }
 }
 
-/* Disable smooth scroll for users who prefer reduced motion */
+/* Disable smooth scroll and animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

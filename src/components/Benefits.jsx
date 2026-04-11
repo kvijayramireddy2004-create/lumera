@@ -105,11 +105,9 @@ function BenCard({ card }) {
         {card.animate ? "0%" : card.num}
       </div>
 
-      {/* Title */}
-      <div style={{ fontWeight: 700 }}>{card.title}</div>
+      <h3 style={{ fontWeight: 700, fontSize: "1rem", lineHeight: 1.3 }}>{card.title}</h3>
 
-      {/* Description */}
-      <div style={{ fontSize: "0.85rem", color: "#64748B" }}>{card.desc}</div>
+      <p style={{ fontSize: "0.85rem", color: "#64748B" }}>{card.desc}</p>
     </div>
   );
 }

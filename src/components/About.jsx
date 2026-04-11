@@ -39,7 +39,7 @@ export default function About() {
         <div className="about-img" style={{ position: 'relative', borderRadius: '20px', overflow: 'hidden', boxShadow: '0 24px 80px rgba(0,0,0,0.14)' }}>
           <img
             src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=900&q=80"
-            alt="Solar Farm"
+            alt="Industrial solar power plant with rows of panels powering manufacturing facilities"
             className="about-img-el" style={{ width: '100%', height: '420px', objectFit: 'cover', display: 'block' }}
             loading="lazy"
           />
@@ -58,7 +58,7 @@ export default function About() {
               width: '46px', height: '46px', borderRadius: '12px', flexShrink: 0,
               background: 'linear-gradient(135deg,#F97316,#EA580C)',
               display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.4rem',
-            }}>☀️</div>
+            }}><span aria-hidden="true">☀️</span></div>
             <div>
               <div style={{ fontWeight: 700, fontSize: '0.9rem', color: '#0C1220' }}>Solar Power Plants</div>
               <div style={{ fontSize: '0.78rem', color: '#64748B', marginTop: '0.15rem' }}>Developed, Owned &amp; Operated by Lumera</div>
@@ -73,17 +73,17 @@ export default function About() {
             We Power <span className="grad-text">Industries</span><br />With Clean Solar
           </h2>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <ul style={{ display: 'flex', flexDirection: 'column', listStyle: 'none' }}>
             {FEATURES.map((f, i) => (
-              <div key={i} className="about-feat" style={{
+              <li key={i} className="about-feat" style={{
                 display: 'flex', gap: '1rem', alignItems: 'flex-start',
                 padding: '1rem 0', borderBottom: i < FEATURES.length - 1 ? '1px solid #F1F5F9' : 'none',
               }}>
-                <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#F97316', marginTop: '7px', flexShrink: 0 }} />
+                <div aria-hidden="true" style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#F97316', marginTop: '7px', flexShrink: 0 }} />
                 <p style={{ fontSize: '0.95rem', color: '#475569', lineHeight: 1.75 }}>{f}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
 
           <div style={{ marginTop: '2.4rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <a href="#contact" className="btn-primary"
