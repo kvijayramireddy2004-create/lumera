@@ -15,24 +15,34 @@ export default function Hero() {
       }}
     >
       <div
-        role="img"
-        aria-label="Solar panels powering industrial facilities at sunrise"
+        aria-hidden="true"
         style={{
           position: "absolute", inset: 0,
-          backgroundImage: `url(${heroImg})`,
-          backgroundSize: "cover", backgroundPosition: "center",
+          overflow: "hidden",
         }}
-      />
+      >
+        <video
+          aria-label="Aerial drone view flight over a solar panel farm"
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={heroImg}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+          }}
+        >
+          <source src="/vecteezy_side-view-aerial-drone-view-flight-over-solar-panel-farm_9699478.mp4" type="video/mp4" />
+        </video>
+      </div>
       <div aria-hidden="true" style={{
         position: "absolute", inset: 0,
         background: "linear-gradient(to top, rgba(10,14,22,0.95) 0%, rgba(10,14,22,0.5) 40%, rgba(10,14,22,0.2) 100%)",
       }} />
 
-      <div style={{
-        position: "relative", zIndex: 2,
-        padding: "0 var(--section-x) 6rem",
-        maxWidth: "900px",
-      }}>
+      <div className="hero-content">
         <div className="eyebrow eyebrow--light" style={{ marginBottom: "2rem" }}>
           India's Industrial Solar Partner
         </div>
@@ -48,17 +58,13 @@ export default function Hero() {
           </span>
         </h1>
 
-        <p style={{
-          fontSize: "1.1rem", lineHeight: 1.8,
-          color: "rgba(255,255,255,0.7)",
-          maxWidth: "540px", marginBottom: "3rem",
-        }}>
+        <p className="hero-copy">
           We develop, own, and operate solar power plants — delivering clean
           electricity directly to industrial consumers through long-term Power
           Purchase Agreements.
         </p>
 
-        <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
+        <div className="hero-cta-row">
           <a href="#contact" className="btn-pill btn-orange"
             onClick={(e) => { e.preventDefault(); document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" }); }}>
             Get Free Energy Audit <span className="arrow">→</span>
@@ -88,6 +94,24 @@ export default function Hero() {
       </div>
 
       <style>{`
+        .hero-content {
+          position: relative;
+          z-index: 2;
+          padding: clamp(6.5rem, 12vh, 8rem) var(--section-x) clamp(3.5rem, 8vh, 6rem);
+          max-width: 900px;
+        }
+        .hero-copy {
+          font-size: 1.1rem;
+          line-height: 1.8;
+          color: rgba(255,255,255,0.7);
+          max-width: 540px;
+          margin-bottom: 3rem;
+        }
+        .hero-cta-row {
+          display: flex;
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
         .hero-heading {
           font-size: clamp(2.8rem, 7vw, 5.5rem);
           font-weight: 900;
@@ -211,7 +235,76 @@ export default function Hero() {
           .hero-metrics-grid .hero-metric:last-child { grid-column: auto; }
           .hero-metric { min-height: auto; }
         }
+        @media (max-width: 768px) {
+          .hero-content {
+            max-width: 100%;
+            padding-top: 6.75rem;
+            padding-bottom: 2.2rem;
+          }
+          .hero-heading {
+            font-size: clamp(2.25rem, 14vw, 3.2rem);
+            line-height: 1.06;
+            margin-bottom: 1.35rem;
+          }
+          .hero-heading-lg {
+            gap: 0.14em;
+            flex-wrap: wrap;
+          }
+          .hero-copy {
+            font-size: 0.99rem;
+            line-height: 1.65;
+            margin-bottom: 1.75rem;
+            max-width: 36ch;
+          }
+          .hero-cta-row {
+            gap: 0.75rem;
+          }
+          .hero-cta-row .btn-pill {
+            width: auto;
+            min-height: 42px;
+            padding: 0.28rem 0.32rem 0.28rem 1rem;
+            font-size: 0.78rem;
+            letter-spacing: 0.01em;
+          }
+          .hero-cta-row .btn-pill .arrow {
+            width: 30px;
+            height: 30px;
+            margin-left: 0.7rem;
+            font-size: 0.9rem;
+          }
+          .hero-metrics-shell {
+            padding-top: 0.75rem;
+          }
+          .hero-content .eyebrow {
+            margin-bottom: 1.15rem !important;
+            letter-spacing: 0.16em;
+          }
+        }
         @media (max-width: 460px) {
+          .hero-content {
+            padding-top: 6.3rem;
+            padding-bottom: 1.8rem;
+          }
+          .hero-heading {
+            font-size: clamp(2.1rem, 12.4vw, 2.7rem);
+          }
+          .hero-heading-sm, .hero-heading-with {
+            font-size: 0.46em;
+          }
+          .hero-copy {
+            font-size: 0.95rem;
+          }
+          .hero-cta-row .btn-pill {
+            font-size: 0.74rem;
+            min-height: 40px;
+            padding-left: 0.9rem;
+          }
+          .hero-cta-row .btn-pill .arrow {
+            width: 28px;
+            height: 28px;
+            margin-left: 0.62rem;
+            font-size: 0.82rem;
+          }
           .hero-metric-value { font-size: 1.7rem; }
           .hero-metric-label { font-size: 0.86rem; }
           .hero-metric-note { font-size: 0.74rem; }

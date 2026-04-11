@@ -61,6 +61,18 @@ export default function Footer() {
           <div style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.35)" }}>
             © 2025 Lumera Energy. All rights reserved.
           </div>
+          <a
+            href="/attribution.html"
+            style={{
+              fontSize: "0.75rem",
+              color: "rgba(255,255,255,0.55)",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => { e.target.style.color = "var(--orange)"; }}
+            onMouseLeave={(e) => { e.target.style.color = "rgba(255,255,255,0.55)"; }}
+          >
+            Media Attribution
+          </a>
         </div>
       </div>
 

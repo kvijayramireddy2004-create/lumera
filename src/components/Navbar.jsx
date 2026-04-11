@@ -12,6 +12,10 @@ const LINKS = [
 export default function Navbar() {
   const [scrolled, setScolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.innerWidth <= 768;
+  });
   const hamburgerRef = useRef(null);
   const menuRef = useRef(null);
 
@@ -22,10 +26,26 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const onResize = () => { if (window.innerWidth > 768) setMenuOpen(false); };
+    const onResize = () => {
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      if (!mobile) setMenuOpen(false);
+    };
+    onResize();
     window.addEventListener("resize", onResize);
     return () => window.removeEventListener("resize", onResize);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) {
+      document.body.style.overflow = "";
+      return;
+    }
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   const closeMenu = useCallback(() => {
     setMenuOpen(false);
@@ -57,6 +77,7 @@ export default function Navbar() {
   };
 
   const solid = scrolled || menuOpen;
+  const navHeight = isMobile ? (solid ? "60px" : "68px") : (solid ? "64px" : "80px");
 
   return (
     <>
@@ -64,8 +85,8 @@ export default function Navbar() {
         aria-label="Primary"
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 1000,
-          padding: "0 var(--section-x)",
-          height: solid ? "64px" : "80px",
+          padding: isMobile ? "0 clamp(1rem, 4vw, 1.2rem)" : "0 var(--section-x)",
+          height: navHeight,
           display: "flex", alignItems: "center", justifyContent: "space-between",
           background: solid ? "rgba(255,255,255,0.6)" : "transparent",
           backdropFilter: solid ? "blur(24px) saturate(180%)" : "none",
@@ -78,8 +99,11 @@ export default function Navbar() {
           <img
             src={logo} alt="Lumera Energy — Home"
             style={{
-              height: solid ? "48px" : "60px", width: "auto",
-              transform: solid ? "translateX(-18px) scale(2)" : "translateX(-22px) scale(2.2)",
+              height: isMobile ? (solid ? "42px" : "48px") : (solid ? "48px" : "60px"),
+              width: "auto",
+              transform: isMobile
+                ? (solid ? "translateX(-8px) scale(1.55)" : "translateX(-10px) scale(1.72)")
+                : (solid ? "translateX(-18px) scale(2)" : "translateX(-22px) scale(2.2)"),
               transformOrigin: "left center",
               filter: solid ? "none" : "brightness(0) invert(1)",
               transition: "all 0.35s ease",
@@ -143,12 +167,19 @@ export default function Navbar() {
         <div id="mobile-menu" ref={menuRef} role="dialog" aria-modal="true" aria-label="Navigation menu"
           style={{
             position: "fixed", inset: 0, background: "#fff", zIndex: 999,
-            display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.5rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "flex-start",
+            gap: "1.25rem",
+            paddingTop: "calc(68px + 1.5rem)",
+            paddingBottom: "2rem",
+            overflowY: "auto",
           }}>
           {LINKS.map(({ label, href }) => (
             <a key={href} href={href} onClick={(e) => go(e, href)}
               style={{
-                fontSize: "1.6rem", fontWeight: 700,
+                fontSize: "1.4rem", fontWeight: 700,
                 letterSpacing: "0.05em",
                 color: "#111", textDecoration: "none",
               }}
@@ -164,6 +195,13 @@ export default function Navbar() {
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
+        }
+        @media (max-width: 460px) {
+          #mobile-menu .btn-pill {
+            width: calc(100% - 2.5rem);
+            max-width: 320px;
+            justify-content: space-between;
+          }
         }
       `}</style>
     </>
